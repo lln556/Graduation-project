@@ -72,6 +72,8 @@ public class NavHomeFragment extends Fragment {
         // 设置 recycler adapter 不同的item
         list = new ArrayList<>();
         list.add(new HomeItemModel(HomeItemModel.TYPE_CAROUSEL));  // 滚动图片
+        list.add(new HomeItemModel(HomeItemModel.TYPE_CATEGORY));  // 商品分类
+        list.add(new HomeItemModel(HomeItemModel.TYPE_RECOMMEND));  // 推荐商品
     }
 
 

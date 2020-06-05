@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.android.cai_lai_la.R;
+import com.android.cai_lai_la.model.ProductClass;
 import com.android.cai_lai_la.model.ui.HomeBannerInfoModel;
 import com.android.cai_lai_la.model.ui.HomeItemModel;
 import com.bumptech.glide.Glide;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +28,7 @@ import butterknife.ButterKnife;
  * home 界面使用 RecyclerView的当时，但是同时需要添加集中类型的 item
  */
 public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static final String TAG = "home recycler";
+    private static final String TAG = "home adapter";
     private Context context;
     private Activity activity;
     private List<HomeItemModel> list;
@@ -91,6 +93,31 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         } else if (viewHolder instanceof CategoryHolder){
             // 分类图
+            CategoryHolder holder = (CategoryHolder) viewHolder;
+            // 设置数据
+            Log.i(TAG, "onBindViewHolder: 准备获取所有分类信息");
+            // TODO: 暂时使用一些测试数据
+            List<ProductClass> list = new ArrayList<>();
+            for (int i = 0; i < 8; i++) {
+                ProductClass productClass = new ProductClass();
+                productClass.setClassname("蔬菜");
+                list.add(productClass);
+            }
+//            List<ProductClass> list = ProductClassController.list();
+            Log.i(TAG, "onBindViewHolder: 获取到所有分类信息");
+            // 初始化
+            // 设置布局方式
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 4);
+            gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    return 1;
+                }
+            });
+            holder.categoryPage.setLayoutManager(gridLayoutManager);
+            // 设置adapter
+            holder.categoryPage.setAdapter(new HomeCategoryRecyclerAdapter(context, activity, list));
+            Log.i(TAG, "onBindViewHolder: 商品分类设置完成");
         } else if (viewHolder instanceof RecommendHolder){
             // 推荐商品布局
         }
@@ -133,6 +160,8 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
      * 分类栏
      */
     class CategoryHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.home_category_recycler)
+        RecyclerView categoryPage;
         public CategoryHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

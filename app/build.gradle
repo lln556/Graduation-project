@@ -28,7 +28,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
 
     }
-
+    // 测试时log支持
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 ext {

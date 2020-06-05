@@ -11,6 +11,24 @@ public class ProductClass {
      * 商品类型名称
      */
     private String classname;
+     private String classpic;
+
+    @Override
+    public String toString() {
+        return "ProductClass{" +
+                "pcid=" + pcid +
+                ", classname='" + classname + '\'' +
+                ", classpic='" + classpic + '\'' +
+                '}';
+    }
+
+    public String getClasspic() {
+        return classpic;
+    }
+
+    public void setClasspic(String classpic) {
+        this.classpic = classpic;
+    }
 
     /**
      * 获取id
@@ -37,14 +55,6 @@ public class ProductClass {
      */
     public String getClassname() {
         return classname;
-    }
-
-    @Override
-    public String toString() {
-        return "ProductClass{" +
-                "pcid=" + pcid +
-                ", classname='" + classname + '\'' +
-                '}';
     }
 
     /**

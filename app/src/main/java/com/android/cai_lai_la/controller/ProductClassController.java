@@ -1,5 +1,7 @@
 package com.android.cai_lai_la.controller;
 
+import android.util.Log;
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.android.cai_lai_la.model.Product;
@@ -11,7 +13,11 @@ import java.util.List;
 import okhttp3.FormBody;
 
 public class ProductClassController {
+
+    private static final String TAG = "WebController 商品分类";
+
     public static List<ProductClass> list(){
+        Log.i(TAG, "list: 查找所有分类");
         String url = "/product/class/list";
         JSONObject body = PostUtils.postJson(url,"");
         JSONArray list = body.getJSONArray("data");
