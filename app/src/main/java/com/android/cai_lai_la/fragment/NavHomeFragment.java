@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.android.cai_lai_la.R;
 import com.android.cai_lai_la.adapter.HomeRecyclerAdapter;
-import com.android.cai_lai_la.model.ui.HomeItem;
+import com.android.cai_lai_la.model.ui.HomeItemModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +17,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,7 +31,7 @@ public class NavHomeFragment extends Fragment {
 
     Activity activity;
     Context context;
-    List<HomeItem> homeItems;
+    List<HomeItemModel> list;
 
     public static NavHomeFragment newInstance() {
         return new NavHomeFragment();
@@ -57,9 +58,10 @@ public class NavHomeFragment extends Fragment {
     private void initView(){
         // 设置 recyclerView
         // TODO: 设置布局，选用网格布局
-
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
+        recyclerView.setLayoutManager(linearLayoutManager);
         // 设置 Adapter
-        adapter = new HomeRecyclerAdapter(context, activity, homeItems);
+        adapter = new HomeRecyclerAdapter(context, activity, list);
         recyclerView.setAdapter(adapter);
     }
 
@@ -67,8 +69,9 @@ public class NavHomeFragment extends Fragment {
      * 初始化数据
      */
     private void initData(){
-        homeItems = new ArrayList<>();
-        homeItems.add(new HomeItem(HomeItem.TYPE_CAROUSEL));
+        // 设置 recycler adapter 不同的item
+        list = new ArrayList<>();
+        list.add(new HomeItemModel(HomeItemModel.TYPE_CAROUSEL));  // 滚动图片
     }
 
 

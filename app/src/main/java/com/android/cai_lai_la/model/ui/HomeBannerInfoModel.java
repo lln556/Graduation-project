@@ -2,19 +2,23 @@ package com.android.cai_lai_la.model.ui;
 
 import com.stx.xhb.androidx.entity.BaseBannerInfo;
 
-public class HomeBannerInfo implements BaseBannerInfo {
-    private String imageUrl;
-    private int imageId;
+public class HomeBannerInfoModel implements BaseBannerInfo {
 
-    public HomeBannerInfo(int imageId, String title) {
+    private int imageId;  // 资源id
+    private String title;  //  项目标题
+
+    public int getImageId() {
+        return imageId;
+    }
+
+    public HomeBannerInfoModel(int imageId, String title) {
         this.imageId = imageId;
         this.title = title;
     }
 
-    private String title;
     @Override
     public Object getXBannerUrl() {
-        return imageId;
+        return null;
     }
 
     @Override

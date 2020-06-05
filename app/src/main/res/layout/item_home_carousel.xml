@@ -4,7 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
-	<com.stx.xhb.xbanner.XBanner
+	<com.stx.xhb.androidx.XBanner
 		xmlns:app="http://schemas.android.com/apk/res-auto"
 		android:id="@+id/xbanner"
 		android:layout_width="match_parent"
@@ -15,6 +15,7 @@
 		app:tipTextSize="12sp"
 		app:isShowNumberIndicator="true"
 		app:isShowIndicatorOnlyOne="true"
+		app:isShowTips="true"
 		app:pageChangeDuration="800"
 		tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>
