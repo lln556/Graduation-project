@@ -49,7 +49,7 @@ public class HomeRecommendRecyclerAdapter extends RecyclerView.Adapter<RecyclerV
         if (random.nextInt() > 0){
             holder.imageView.setImageResource(R.drawable.product_default);
         } else{
-            holder.imageView.setImageResource(R.drawable.product_defalut2);
+            holder.imageView.setImageResource(R.drawable.product_default1);
         }
         holder.title.setText("大白菜");
         holder.price.setText("￥2000元");

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.android.cai_lai_la.R;
+import com.android.cai_lai_la.controller.ProductController;
 import com.android.cai_lai_la.model.Product;
 import com.android.cai_lai_la.model.ProductClass;
 import com.android.cai_lai_la.model.ui.HomeBannerInfoModel;
@@ -35,6 +36,20 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private Activity activity;
     private List<HomeItemModel> list;
     private LayoutInflater inflater;  // 用于在 onCreateViewHolder 时，寻找不同的布局文件
+
+    @Override
+    public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        int position = holder.getLayoutPosition();
+        HomeItemModel homeItemModel = list.get(position);
+        if (homeItemModel.getType() == HomeItemModel.TYPE_CAROUSEL || homeItemModel.getType() == HomeItemModel.TYPE_CATEGORY){
+            ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
+            if (layoutParams instanceof StaggeredGridLayoutManager.LayoutParams){
+                StaggeredGridLayoutManager.LayoutParams params = (StaggeredGridLayoutManager.LayoutParams) layoutParams;
+                params.setFullSpan(true);
+            }
+        }
+    }
 
     public HomeRecyclerAdapter(Context context, Activity activity, List<HomeItemModel> list) {
         this.context = context;
@@ -121,20 +136,27 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             holder.categoryPage.setAdapter(new HomeCategoryRecyclerAdapter(context, activity, list));
             Log.i(TAG, "onBindViewHolder: 商品分类设置完成");
         } else if (viewHolder instanceof RecommendHolder){
+            Log.i(TAG, "onBindViewHolder: 创建推荐商品信息");
             // 推荐商品布局
             RecommendHolder holder = (RecommendHolder) viewHolder;
             // 设置数据
             // TODO：通过网络请求获取数据
-            List<Product> list = new ArrayList<>();
-            for (int i = 0; i < 10; i++) {
-                list.add(new Product());
-            }
-            // 设置布局
-            StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-            holder.recyclerView.setLayoutManager(layoutManager);
-            // 设置adapter
-            HomeRecommendRecyclerAdapter homeRecommendRecyclerAdapter = new HomeRecommendRecyclerAdapter(context, activity, list);
-            holder.recyclerView.setAdapter(homeRecommendRecyclerAdapter);
+            Runnable runnable = new Runnable() {
+
+                @Override
+                public void run() {
+                    List<Product> list = ProductController.list();
+                    // 设置布局
+                    StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+                    holder.recyclerView.setLayoutManager(layoutManager);
+                    // 设置adapter
+                    HomeRecommendRecyclerAdapter homeRecommendRecyclerAdapter = new HomeRecommendRecyclerAdapter(context, activity, list);
+                    holder.recyclerView.setAdapter(homeRecommendRecyclerAdapter);
+                }
+            };
+
+            Thread thread = new Thread(runnable);
+            thread.start();
         }
 
     }
