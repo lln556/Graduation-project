@@ -146,15 +146,16 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 @Override
                 public void run() {
                     List<Product> list = ProductController.list();
-                    // 设置布局
-                    StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-                    holder.recyclerView.setLayoutManager(layoutManager);
-                    // 设置adapter
-                    HomeRecommendRecyclerAdapter homeRecommendRecyclerAdapter = new HomeRecommendRecyclerAdapter(context, activity, list);
-                    holder.recyclerView.setAdapter(homeRecommendRecyclerAdapter);
+                    activity.runOnUiThread(()->{
+                        // 设置布局
+                        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+                        holder.recyclerView.setLayoutManager(layoutManager);
+                        // 设置adapter
+                        HomeRecommendRecyclerAdapter homeRecommendRecyclerAdapter = new HomeRecommendRecyclerAdapter(context, activity, list);
+                        holder.recyclerView.setAdapter(homeRecommendRecyclerAdapter);
+                    });
                 }
             };
-
             Thread thread = new Thread(runnable);
             thread.start();
         }

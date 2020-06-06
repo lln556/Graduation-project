@@ -1,5 +1,6 @@
 package com.android.cai_lai_la.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +13,6 @@ import com.android.cai_lai_la.R;
 import com.android.cai_lai_la.model.Product;
 
 import java.util.List;
-import java.util.Random;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,20 +40,16 @@ public class HomeRecommendRecyclerAdapter extends RecyclerView.Adapter<RecyclerV
         return new RecommendProductHolder(view);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
         // TODO: 初始化数据
-        // TODO: 暂时使用测试数据
+        Product product = list.get(position);
         RecommendProductHolder holder = (RecommendProductHolder) viewHolder;
-        Random random = new Random();
-        if (random.nextInt() > 0){
-            holder.imageView.setImageResource(R.drawable.product_default);
-        } else{
-            holder.imageView.setImageResource(R.drawable.product_default1);
-        }
-        holder.title.setText("大白菜");
-        holder.price.setText("￥2000元");
-        holder.keep.setText("剩余30件");
+        holder.imageView.setImageResource(R.drawable.product_default);
+        holder.title.setText(String.format("%s，%s", product.getTitle(), product.getSubtitle()));
+        holder.price.setText(String.format("￥%.2f元", product.getCurrentprice()));
+        holder.keep.setText(String.format("剩余%d件", product.getStorenum()));
     }
 
 
