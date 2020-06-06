@@ -1,10 +1,13 @@
 package com.android.cai_lai_la;
 
+import com.android.cai_lai_la.controller.CartController;
 import com.android.cai_lai_la.controller.ProductClassController;
+import com.android.cai_lai_la.model.Product;
 import com.android.cai_lai_la.model.ProductClass;
 
 import org.junit.Test;
 
+import java.sql.SQLOutput;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -25,6 +28,14 @@ public class ExampleUnitTest {
         List<ProductClass> list = ProductClassController.list();
         for (ProductClass p :
                 list) {
+            System.out.println(p);
+        }
+    }
+    @Test
+    public void test2(){
+        System.out.println("获取购物车信息");
+        List<Product> productList = CartController.list(1);
+        for(Product p:productList){
             System.out.println(p);
         }
     }
