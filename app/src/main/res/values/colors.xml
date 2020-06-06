@@ -7,4 +7,6 @@
 	<color name="home_head">#D92027</color>
 	<color name="search_corner_bg">#fff</color>
 	<color name="bottom_navigation_active">#fff</color>
+
+	<color name="cart_order">#E8321D</color>
 </resources>
