@@ -36,6 +36,20 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private List<HomeItemModel> list;
     private LayoutInflater inflater;  // 用于在 onCreateViewHolder 时，寻找不同的布局文件
 
+    @Override
+    public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        int position = holder.getLayoutPosition();
+        HomeItemModel homeItemModel = list.get(position);
+        if (homeItemModel.getType() == HomeItemModel.TYPE_CAROUSEL || homeItemModel.getType() == HomeItemModel.TYPE_CATEGORY){
+            ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
+            if (layoutParams instanceof StaggeredGridLayoutManager.LayoutParams){
+                StaggeredGridLayoutManager.LayoutParams params = (StaggeredGridLayoutManager.LayoutParams) layoutParams;
+                params.setFullSpan(true);
+            }
+        }
+    }
+
     public HomeRecyclerAdapter(Context context, Activity activity, List<HomeItemModel> list) {
         this.context = context;
         this.activity = activity;
