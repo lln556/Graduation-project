@@ -5,6 +5,9 @@
 	<color name="colorAccent">#03DAC5</color>
 	<color name="home_white">#fff</color>
 	<color name="home_head">#D92027</color>
+	<color name="home_product_gb">#eeeeee</color>
+	<color name="home_product_title">#000</color>
+	<color name="home_product_price">#d92027</color>
 	<color name="search_corner_bg">#fff</color>
 	<color name="bottom_navigation_active">#fff</color>
 </resources>

@@ -52,7 +52,7 @@ public class HomeRecommendRecyclerAdapter extends RecyclerView.Adapter<RecyclerV
             holder.imageView.setImageResource(R.drawable.product_defalut2);
         }
         holder.title.setText("大白菜");
-        holder.price.setText("20元");
+        holder.price.setText("￥2000元");
         holder.keep.setText("剩余30件");
     }
 
