@@ -34,7 +34,7 @@ public class PostUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.i(TAG, "postJson: 获取的数据为" + res.substring(0, Math.max(255, res.length())));
+        Log.i(TAG, "postJson: 获取的数据为" + res.substring(0, Math.min(255, res.length())));
         return JSON.parseObject(res);
     }
 
@@ -56,7 +56,7 @@ public class PostUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.i(TAG, "postParam: 获取的数据为" + res.substring(0, Math.max(255, res.length())));
+        Log.i(TAG, "postParam: 获取的数据为" + res.substring(0, Math.min(255, res.length())));
         return JSON.parseObject(res);
     }
 }
