@@ -13,13 +13,12 @@ import android.widget.Toast;
 
 import com.android.cai_lai_la.R;
 import com.android.cai_lai_la.adapter.CartListAdapter;
-import com.android.cai_lai_la.adapter.HomeRecommendRecyclerAdapter;
+import com.android.cai_lai_la.callback.OnClickAddCloseListenter;
 import com.android.cai_lai_la.controller.CartController;
-import com.android.cai_lai_la.controller.ProductController;
 import com.android.cai_lai_la.model.Product;
+import com.android.cai_lai_la.model.ui.CartInfo;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +34,11 @@ import butterknife.ButterKnife;
 public class NavCartFragment extends Fragment {
     private int uid = 1;//用户编号
     private Context mContext;
+    CartInfo cartInfo;
 
     @BindView(R.id.cart_listView)
     ListView listView;
+
 
     public NavCartFragment() {
         // Required empty public constructor
@@ -73,12 +74,35 @@ public class NavCartFragment extends Fragment {
             if (msg.what == 0) {
                 ArrayList arrayList = msg.getData().getParcelableArrayList("data");
                 List<Product> data = (List<Product>) arrayList.get(0);
+                List cartInfos=new ArrayList();
+                for (int i = 0; i <= data.size()-1;i++){
+                    cartInfos.add(new CartInfo());
+                }
+
                 if (data.size() == 0) {
                     Toast.makeText(mContext, "商品不存在", Toast.LENGTH_SHORT).show();
                 } else {
-                    CartListAdapter adapter = new CartListAdapter(mContext, data);
+                    CartListAdapter adapter = new CartListAdapter(mContext, data, cartInfos);
                     listView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
+                    adapter.setOnClickAddCloseListenter(new OnClickAddCloseListenter() {
+                        @Override
+                        public void onItemClick(View view, int index, int position,int num) {
+                            if (index==1){
+                                if (num>1) {
+                                    CartInfo cartinfoClose = (CartInfo)cartInfos.get(position);
+                                    cartinfoClose.setNum((num - 1));
+                                    adapter.notifyDataSetChanged();
+                                }
+                            }else {
+                                CartInfo cartinfoAdd = (CartInfo)cartInfos.get(position);
+                                cartinfoAdd.setNum((num + 1));
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+                    });
+
+
                 }
             }
         }
@@ -89,7 +113,7 @@ public class NavCartFragment extends Fragment {
             @Override
             public void run() {
                 List<Product> productList = new ArrayList();
-                productList = CartController.list(1);
+                productList = CartController.list(uid);
 
                 ArrayList arrayList = new ArrayList();//用于传递list的集合
                 arrayList.add(productList);
@@ -105,4 +129,6 @@ public class NavCartFragment extends Fragment {
         Thread thread = new Thread(runnable);
         thread.start();
     }
+
+
 }
