@@ -142,7 +142,6 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             // 设置数据
             // TODO：通过网络请求获取数据
             Runnable runnable = new Runnable() {
-
                 @Override
                 public void run() {
                     List<Product> list = ProductController.list();
