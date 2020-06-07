@@ -2,4 +2,6 @@
 <resources>
 	<dimen name="home_product">16sp</dimen>
 	<dimen name="home_product_smaller">8sp</dimen>
+	<dimen name="home_category_margin_left_right">10dp</dimen>
+	<dimen name="home_category_item_margin_left_right">15dp</dimen>
 </resources>
