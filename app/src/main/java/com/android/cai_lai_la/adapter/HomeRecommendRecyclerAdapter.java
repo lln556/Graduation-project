@@ -47,7 +47,6 @@ public class HomeRecommendRecyclerAdapter extends RecyclerView.Adapter<RecyclerV
     @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-        // TODO: 初始化数据
         Product product = list.get(position);
         RecommendProductHolder holder = (RecommendProductHolder) viewHolder;
         holder.title.setText(String.format("%s，%s", product.getTitle(), product.getSubtitle()));
