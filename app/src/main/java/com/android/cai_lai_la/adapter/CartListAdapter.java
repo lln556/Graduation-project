@@ -11,9 +11,7 @@ import android.widget.TextView;
 
 import com.android.cai_lai_la.R;
 import com.android.cai_lai_la.callback.OnClickAddCloseListenter;
-import com.android.cai_lai_la.callback.OnClickDeleteListenter;
 import com.android.cai_lai_la.callback.OnClickListenterModel;
-import com.android.cai_lai_la.model.Cart;
 import com.android.cai_lai_la.model.Product;
 import com.android.cai_lai_la.model.ui.CartInfo;
 

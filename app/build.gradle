@@ -78,5 +78,4 @@ dependencies {
     implementation 'com.github.xiaohaibin:PageMenuLayout:0.3.0'
 
     // ------- 刘律宁 -------
-    implementation 'com.google.code.gson:gson:2.6.2'
 }

@@ -29,6 +29,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -189,4 +190,9 @@ public class NavCartFragment extends Fragment {
             e.printStackTrace();
         }
     }
+
+    @OnClick(R.id.cart_shopp_moular)
+    public void onClick() {
+        Toast.makeText(mContext,"提交订单:  "+cartMoney.getText().toString()+"元",Toast.LENGTH_LONG).show();
     }
+}
