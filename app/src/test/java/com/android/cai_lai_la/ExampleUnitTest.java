@@ -1,7 +1,10 @@
 package com.android.cai_lai_la;
 
+import com.alibaba.fastjson.JSON;
 import com.android.cai_lai_la.controller.ProductClassController;
+import com.android.cai_lai_la.controller.ProductPicController;
 import com.android.cai_lai_la.model.ProductClass;
+import com.android.cai_lai_la.model.ProductPic;
 
 import org.junit.Test;
 
@@ -19,13 +22,25 @@ public class ExampleUnitTest {
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
     }
+
     @Test
-    public void test1(){
+    public void test1() {
         System.out.println("获取商品分类");
         List<ProductClass> list = ProductClassController.list();
         for (ProductClass p :
                 list) {
             System.out.println(p);
         }
+    }
+
+    @Test
+    public void testProductPicList() {
+        System.out.println("获取商品图片");
+        System.out.println("获取所有图片");
+        List<ProductPic> list = ProductPicController.list();
+        System.out.println(JSON.toJSON(list).toString());
+        System.out.println("获取pid=1的商品的图片");
+        List<ProductPic> list1 = ProductPicController.list(3);
+        System.out.println(JSON.toJSON(list1).toString());
     }
 }
