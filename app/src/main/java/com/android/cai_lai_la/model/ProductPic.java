@@ -1,6 +1,8 @@
 package com.android.cai_lai_la.model;
 
 
+import com.android.cai_lai_la.config.Config;
+
 public class ProductPic {
     /**
      * id
@@ -77,6 +79,6 @@ public class ProductPic {
      * @param pidpath 图片路径
      */
     public void setPidpath(String pidpath) {
-        this.pidpath = pidpath;
+        this.pidpath = Config.PIC_IP + pidpath;
     }
 }

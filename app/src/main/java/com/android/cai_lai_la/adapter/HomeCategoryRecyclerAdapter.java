@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.android.cai_lai_la.R;
 import com.android.cai_lai_la.model.ProductClass;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
@@ -49,13 +51,24 @@ public class HomeCategoryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
         CategoryItemHolder holder = (CategoryItemHolder) viewHolder;
         ProductClass productClass = list.get(position);
         Log.i(TAG, "onBindViewHolder: 分类信息为 " +productClass.getClassname());
-        holder.imageView.setImageResource(R.drawable.ic_category_default);
+
+        // 加载图片
+        RequestOptions requestOptions= new RequestOptions()
+                .placeholder(R.drawable.ic_cate_default)
+                .error(R.drawable.ic_cate_default)
+                .override(200)
+                .fitCenter()
+                ;
+        Glide.with(context)
+                .load(productClass.getClasspic())
+                .apply(requestOptions)
+                .into(holder.imageView);
         holder.textView.setText(productClass.getClassname());
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return 8;
     }
 
     static class CategoryItemHolder extends RecyclerView.ViewHolder {
