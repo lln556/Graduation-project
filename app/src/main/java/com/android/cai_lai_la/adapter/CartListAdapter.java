@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.android.cai_lai_la.R;
 import com.android.cai_lai_la.callback.OnClickAddCloseListenter;
 import com.android.cai_lai_la.callback.OnClickDeleteListenter;
+import com.android.cai_lai_la.callback.OnClickListenterModel;
 import com.android.cai_lai_la.model.Cart;
 import com.android.cai_lai_la.model.Product;
 import com.android.cai_lai_la.model.ui.CartInfo;
@@ -63,8 +64,16 @@ public class CartListAdapter extends BaseAdapter {
         Product product = list.get(position);
         viewHolder.name.setText(product.getTitle());
         viewHolder.content.setText(product.getSubtitle());
+        viewHolder.checkBox.setChecked(cartInfos.get(position).ischeck());
         viewHolder.price.setText("¥ "+product.getCurrentprice());
         viewHolder.btnNum.setText(cartInfos.get(position).getNum()+"");
+
+        viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickListenterModel.onItemClick(viewHolder.checkBox.isChecked(),v,position);
+            }
+        });
         return convertView;
     }
 
@@ -110,6 +119,13 @@ public class CartListAdapter extends BaseAdapter {
             }
         }
     }
+
+    // CheckBox接口的方法
+    private OnClickListenterModel onClickListenterModel = null;
+    public void setOnClickListenterModel(OnClickListenterModel listener) {
+        this.onClickListenterModel = listener;
+    }
+
     // 数量接口的方法
     private OnClickAddCloseListenter onClickAddCloseListenter = null;
     public void setOnClickAddCloseListenter(OnClickAddCloseListenter listener) {

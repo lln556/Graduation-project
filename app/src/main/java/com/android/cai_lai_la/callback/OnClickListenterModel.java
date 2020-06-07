@@ -3,10 +3,10 @@ package com.android.cai_lai_la.callback;
 import android.view.View;
 
 /**
- * Created by zhangqie on 2016/11/26.
+ * Created by 刘律宁 on 2020/6/7.
  */
 
 public interface OnClickListenterModel {
 
-    void onItemClick(boolean isFlang, View view, int onePosition, int position);
+    void onItemClick(boolean isFlang, View view,int position);
 }
