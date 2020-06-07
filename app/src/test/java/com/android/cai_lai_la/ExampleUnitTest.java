@@ -41,6 +41,7 @@ public class ExampleUnitTest {
         System.out.println(JSON.toJSON(list).toString());
         System.out.println("获取pid=1的商品的图片");
         List<ProductPic> list1 = ProductPicController.list(3);
+        System.out.println(list1);
         System.out.println(JSON.toJSON(list1).toString());
     }
 }

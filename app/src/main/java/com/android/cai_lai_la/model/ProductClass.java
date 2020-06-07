@@ -1,6 +1,8 @@
 package com.android.cai_lai_la.model;
 
 
+import com.android.cai_lai_la.config.Config;
+
 public class ProductClass {
     /**
      * id
@@ -11,7 +13,7 @@ public class ProductClass {
      * 商品类型名称
      */
     private String classname;
-     private String classpic;
+    private String classpic;
 
     @Override
     public String toString() {
@@ -27,7 +29,7 @@ public class ProductClass {
     }
 
     public void setClasspic(String classpic) {
-        this.classpic = classpic;
+        this.classpic = Config.PIC_IP + classpic;
     }
 
     /**

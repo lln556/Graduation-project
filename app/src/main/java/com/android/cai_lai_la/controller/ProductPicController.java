@@ -22,6 +22,7 @@ public class ProductPicController {
         String url = "/product/pic/list";
         FormBody.Builder builder = new FormBody.Builder();
         builder.add("pid", "" + pid);
+        Log.i(TAG, "list: 请求地址为" + url);
         JSONObject jsonObject = PostUtils.postParam(url, builder);
         JSONArray list = jsonObject.getJSONObject("data").getJSONArray("list");
         List<ProductPic> productPics = list.toJavaList(ProductPic.class);

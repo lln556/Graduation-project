@@ -10,7 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.cai_lai_la.R;
+import com.android.cai_lai_la.controller.ProductPicController;
 import com.android.cai_lai_la.model.Product;
+import com.android.cai_lai_la.model.ProductPic;
+import com.android.cai_lai_la.utils.LoadImageUtils;
 
 import java.util.List;
 
@@ -20,6 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HomeRecommendRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    public static final String TAG = "home 推荐商品 adapter";
     Context context;
     Activity activity;
     List<Product> list;
@@ -46,10 +50,19 @@ public class HomeRecommendRecyclerAdapter extends RecyclerView.Adapter<RecyclerV
         // TODO: 初始化数据
         Product product = list.get(position);
         RecommendProductHolder holder = (RecommendProductHolder) viewHolder;
-        holder.imageView.setImageResource(R.drawable.product_default);
         holder.title.setText(String.format("%s，%s", product.getTitle(), product.getSubtitle()));
         holder.price.setText(String.format("￥%.2f元", product.getCurrentprice()));
         holder.keep.setText(String.format("剩余%d件", product.getStorenum()));
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                List<ProductPic> picList = ProductPicController.list(product.getPid());
+//                LoadImageUtils.load(activity, context, R.drawable.product_default1, holder.imageView);
+                LoadImageUtils.load(activity, context, picList, holder.imageView);
+            }
+        };
+        Thread thread = new Thread(runnable);
+        thread.start();
     }
 
 
