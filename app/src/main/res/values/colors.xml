@@ -12,4 +12,6 @@
 	<color name="bottom_navigation_active">#fff</color>
 
 	<color name="cart_order">#E8321D</color>
+
+	<color name="cart_Grayan">#E4E4E4</color>
 </resources>

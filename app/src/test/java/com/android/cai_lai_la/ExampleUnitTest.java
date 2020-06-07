@@ -1,8 +1,10 @@
 package com.android.cai_lai_la;
 
 import com.alibaba.fastjson.JSON;
+import com.android.cai_lai_la.controller.CartController;
 import com.android.cai_lai_la.controller.ProductClassController;
 import com.android.cai_lai_la.controller.ProductPicController;
+import com.android.cai_lai_la.model.Product;
 import com.android.cai_lai_la.model.ProductClass;
 import com.android.cai_lai_la.model.ProductPic;
 
@@ -32,7 +34,14 @@ public class ExampleUnitTest {
             System.out.println(p);
         }
     }
-
+    @Test
+    public void test2(){
+        System.out.println("获取购物车信息");
+        List<Product> productList = CartController.list(1);
+        for(Product p:productList){
+            System.out.println(p);
+        }
+    }
     @Test
     public void testProductPicList() {
         System.out.println("获取商品图片");
