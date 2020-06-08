@@ -1,8 +1,14 @@
 package com.android.cai_lai_la;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.android.cai_lai_la.activity.SearchActivity;
 import com.android.cai_lai_la.adapter.ViewPagerAdapter;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
@@ -12,6 +18,7 @@ import java.util.ArrayList;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.Group;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -22,6 +29,14 @@ public class MainActivity extends AppCompatActivity {
     AHBottomNavigation bottomNavigation;
 //    @BindView(R.id.toolbar)
 //    Toolbar toolbar;
+    @BindView(R.id.home_head_icon)
+    ImageView headImage;
+    @BindView(R.id.home_title_address)
+    TextView tvTitle;
+    @BindView(R.id.home_title_search)
+    LinearLayout searchLayout;
+    @BindView(R.id.home_title_group)
+    Group titleGroup;
 
     private ArrayList<AHBottomNavigationItem> bottomNavigationItems = new ArrayList<>();
 
@@ -43,6 +58,14 @@ public class MainActivity extends AppCompatActivity {
         if (supportActionBar != null) {
             supportActionBar.hide();
         }
+        // 搜索框设置
+        searchLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, SearchActivity.class));
+            }
+        });
+        // 导航栏设置
         AHBottomNavigationItem item1 = new AHBottomNavigationItem("首页", R.drawable.home, R.color.bottom_navigation_active);
         AHBottomNavigationItem item2 = new AHBottomNavigationItem("分类", R.drawable.category, R.color.bottom_navigation_active);
         AHBottomNavigationItem item3 = new AHBottomNavigationItem("购物车", R.drawable.cart, R.color.bottom_navigation_active);
@@ -65,6 +88,12 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
                                                       @Override
                                                       public boolean onTabSelected(int position, boolean wasSelected) {
+                                                          // 设置是否显示最上方title
+                                                          if (position == 0 || position == 1){
+                                                                titleGroup.setVisibility(Group.VISIBLE);
+                                                          } else{
+                                                              titleGroup.setVisibility(Group.GONE);
+                                                          }
                                                           viewPager.setCurrentItem(position, false);
                                                           return true;
                                                       }
