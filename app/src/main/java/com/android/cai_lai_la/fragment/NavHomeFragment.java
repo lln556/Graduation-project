@@ -57,9 +57,8 @@ public class NavHomeFragment extends Fragment {
      */
     private void initView(){
         // 设置 recyclerView
-        // TODO: 设置布局，选用网格布局
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
+        recyclerView.setLayoutManager(layoutManager);
         // 设置 Adapter
         adapter = new HomeRecyclerAdapter(context, activity, list);
         recyclerView.setAdapter(adapter);

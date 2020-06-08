@@ -1,12 +1,31 @@
 package com.android.cai_lai_la.controller;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.android.cai_lai_la.config.Config;
 import com.android.cai_lai_la.model.User;
 import com.android.cai_lai_la.utils.PostUtils;
 
 public class UserController {
-    public static int add(User user){
+    public static final String IS_LOG_KEY = "is_save";
+    public static final String USER_KEY = "user";
+    public static final String PATH = Config.USER_DATA;
+
+    /**
+     * 是否登录
+     * 判断条件，存在标志位且有uer
+     */
+    public static boolean isLog(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PATH, Context.MODE_PRIVATE);
+        boolean isLog = sharedPreferences.getBoolean(IS_LOG_KEY, false);// 是否登录
+        boolean containsUser = sharedPreferences.contains("user");
+        return isLog && containsUser;
+    }
+
+    public static int add(User user) {
         String userJson = JSON.toJSONString(user);
         String url = "/user/add";
         JSONObject body = PostUtils.postJson(url, userJson);
@@ -15,12 +34,36 @@ public class UserController {
         return user1.getUid();
     }
 
-    public static User update(User user){
+    public static User update(User user) {
         String userJson = JSON.toJSONString(user);
         String url = "/user/update";
         JSONObject body = PostUtils.postJson(url, userJson);
         JSONObject data = body.getJSONObject("data");
         User user1 = data.toJavaObject(User.class);
         return user1;
+    }
+
+    /**
+     * 获取已保存用户信息
+     */
+    public static User loadUser(Context context) {
+        User user = null;
+        if (isLog(context)) {
+            SharedPreferences sharedPreferences = context.getSharedPreferences(PATH, Context.MODE_PRIVATE);
+            String userJson = sharedPreferences.getString(USER_KEY, "");
+            user = JSON.parseObject(userJson, User.class);
+        }
+        return user;
+    }
+
+    /**
+     * 本地保存用户信息
+     */
+    public static void saveUser(Context context, User user) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PATH, Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = sharedPreferences.edit();
+        edit.putBoolean(IS_LOG_KEY, true);
+        edit.putString(USER_KEY, JSON.toJSONString(user));
+        edit.apply();
     }
 }

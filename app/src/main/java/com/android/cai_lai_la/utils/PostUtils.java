@@ -6,6 +6,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.android.cai_lai_la.config.Config;
 
+import java.util.Objects;
+
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -34,7 +36,7 @@ public class PostUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.i(TAG, "postJson: 获取的数据为" + res.substring(0, Math.max(255, res.length())));
+        Log.i(TAG, "postJson: 获取的数据为" + res.substring(0, Math.min(255, res.length())));
         return JSON.parseObject(res);
     }
 
@@ -44,6 +46,7 @@ public class PostUtils {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
 //        MediaType mediaType = MediaType.parse("text/plain");
+
         Request request = new Request.Builder()
                 .url(Config.IP + url)
                 .post(param.build())
@@ -51,12 +54,11 @@ public class PostUtils {
         try {
             Log.i(TAG, "postParam: 开始请求");
             Response response = client.newCall(request).execute();
-            String responseBody = response.body().string();
-            res = responseBody;
+            res = Objects.requireNonNull(response.body()).string();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.i(TAG, "postParam: 获取的数据为" + res.substring(0, Math.max(255, res.length())));
+        Log.i(TAG, "postParam: 获取的数据为" + res.substring(0, Math.min(255, res.length())));
         return JSON.parseObject(res);
     }
 }

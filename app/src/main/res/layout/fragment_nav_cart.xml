@@ -1,16 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent">
-	<TextView
+	android:layout_height="match_parent"
+	tools:context=".fragment.NavHomeFragment">
+
+	<ListView
+		android:id="@+id/cart_listView"
+		android:layout_marginTop="20sp"
 		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="购物车页面"
-		app:layout_constraintTop_toTopOf="parent"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintLeft_toLeftOf="parent"
-		app:layout_constraintRight_toRightOf="parent"
-		/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+		android:layout_height="match_parent"
+		android:background="#ffffff">
+	</ListView>
+
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="0.5px"
+		android:background="#e8e8e8"
+		android:layout_marginBottom="0dp" />
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="45dp"
+		android:orientation="horizontal"
+		android:background="@android:color/white"
+		android:gravity="center"
+		android:layout_gravity="bottom"
+		>
+		<TextView
+			android:id="@+id/cart_num"
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:layout_height="wrap_content"
+			android:text="共0件商品"
+			android:textColor="#000000"
+			android:textSize="14dp"
+			android:gravity="right"
+			/>
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="合计："
+			android:textColor="#000000"
+			android:textSize="14dp"
+			android:layout_marginLeft="9dp"
+			/>
+		<TextView
+			android:id="@+id/cart_money"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="¥ 0.0"
+			android:textColor="@color/cart_order"
+			android:textSize="16dp"
+			android:textStyle="bold"
+			/>
+
+		<Button
+			android:id="@+id/cart_shopp_moular"
+			android:layout_width="119dp"
+			android:layout_height="match_parent"
+			android:background="@color/cart_order"
+			android:layout_marginLeft="5dp"
+			android:text="提交订单"
+			android:textColor="@android:color/white" />
+	</LinearLayout>
+</FrameLayout>
