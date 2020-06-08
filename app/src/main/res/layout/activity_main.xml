@@ -7,6 +7,14 @@
 	tools:context=".MainActivity">
 	
 	
+	<!-- title 组 -->
+	<androidx.constraintlayout.widget.Group
+		android:id="@+id/home_title_group"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:visibility="visible"
+		app:constraint_referenced_ids="home_title_search,home_head_icon, home_title_address, home_title_bg"
+		/>
 	<!-- 搜索框 -->
 	<!--	背景-->
 	<ImageView
