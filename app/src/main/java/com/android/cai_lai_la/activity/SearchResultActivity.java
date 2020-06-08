@@ -1,5 +1,6 @@
 package com.android.cai_lai_la.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.android.cai_lai_la.R;
@@ -19,6 +20,7 @@ public class SearchResultActivity extends AppCompatActivity {
     RecyclerView recyclerView;
 
     List<SearchResultItemModel> list;
+    String searchKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +35,13 @@ public class SearchResultActivity extends AppCompatActivity {
         // 初始化 recycler
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(new SearchResultRecyclerAdapter(this, this, list));
+        recyclerView.setAdapter(new SearchResultRecyclerAdapter(this, this, list, searchKey));
     }
     private void initDate(){
         list.add(new SearchResultItemModel(SearchResultItemModel.TYPE_SEARCH));  // 添加搜索框
         list.add(new SearchResultItemModel(SearchResultItemModel.TYPE_PRODUCT));  // 添加商品信息
+        // 获取搜索的关键字
+        Intent intent = getIntent();
+        searchKey = intent.getStringExtra(SearchActivity.INTENT_KEY);
     }
 }

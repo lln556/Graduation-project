@@ -13,18 +13,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class SearchResultRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    Context context;
-    Activity activity;
-    LayoutInflater inflater;
+    private Context context;
+    private Activity activity;
+    private LayoutInflater inflater;
+    private String searchKey;
+    private List<SearchResultItemModel> list;
 
-    public SearchResultRecyclerAdapter(Context context, Activity activity, List<SearchResultItemModel> list) {
+    public SearchResultRecyclerAdapter(Context context, Activity activity, List<SearchResultItemModel> list, String searchKey) {
         this.context = context;
         this.activity = activity;
         this.list = list;
+        this.searchKey = searchKey;
         inflater = activity.getLayoutInflater();
     }
 
-    List<SearchResultItemModel> list;
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
