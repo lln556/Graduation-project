@@ -43,7 +43,15 @@ Thread thread = new Thread(runnable);
 thread.start();
 ```
 
-
+### 使用Glide加载图片
+```java
+RequestOptions options = new RequestOptions().error(defaultImage).placeholder(defaultImage);
+Log.i(TAG, "load: 开始加载图片到" + imageView.getId());
+Glide.with(context)
+        .load(src)
+        .apply(options)
+        .into(imageView);
+```
 
 ## 资料
 

@@ -23,11 +23,11 @@ public class LoadImageUtils {
      */
     public static void load(Activity activity, Context context, Object src, ImageView imageView, int defaultImage) {
         activity.runOnUiThread(() -> {
+            RequestOptions options = new RequestOptions().error(defaultImage).placeholder(defaultImage);
             Log.i(TAG, "load: 开始加载图片到" + imageView.getId());
             Glide.with(context)
                     .load(src)
-                    .apply(new RequestOptions().error(defaultImage))
-                    .apply(new RequestOptions().placeholder(defaultImage))
+                    .apply(options)
                     .into(imageView);
         });
     }
