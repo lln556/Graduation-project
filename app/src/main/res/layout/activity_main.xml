@@ -30,7 +30,7 @@
 		android:layout_width="0dp"
 		android:layout_height="30dp"
 		android:layout_marginLeft="10dp"
-		android:src="@drawable/test1"
+		android:src="@drawable/ic_user_head"
 		app:layout_constraintBottom_toBottomOf="@+id/home_title_bg"
 		app:layout_constraintDimensionRatio="1:1"
 		app:layout_constraintLeft_toLeftOf="@+id/home_title_bg"

@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.android.cai_lai_la.activity.SearchActivity;
 import com.android.cai_lai_la.adapter.ViewPagerAdapter;
+import com.android.cai_lai_la.controller.UserController;
+import com.android.cai_lai_la.model.User;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager;
@@ -65,6 +67,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, SearchActivity.class));
             }
         });
+        // 设置欢迎语
+        boolean isLog = UserController.isLog(this);
+        if (isLog){
+            User user = UserController.loadUser(this);
+            tvTitle.setText(String.format("欢迎%s到来", user.getNickname()));
+        } else{
+            tvTitle.setText(R.string.home_welcome_default);
+        }
         // 导航栏设置
         AHBottomNavigationItem item1 = new AHBottomNavigationItem("首页", R.drawable.home, R.color.bottom_navigation_active);
         AHBottomNavigationItem item2 = new AHBottomNavigationItem("分类", R.drawable.category, R.color.bottom_navigation_active);

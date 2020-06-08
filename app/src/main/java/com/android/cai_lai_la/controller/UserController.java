@@ -46,7 +46,7 @@ public class UserController {
     /**
      * 获取已保存用户信息
      */
-    public User loadUser(Context context) {
+    public static User loadUser(Context context) {
         User user = null;
         if (isLog(context)) {
             SharedPreferences sharedPreferences = context.getSharedPreferences(PATH, Context.MODE_PRIVATE);
@@ -59,7 +59,7 @@ public class UserController {
     /**
      * 本地保存用户信息
      */
-    public void saveUser(Context context, User user) {
+    public static void saveUser(Context context, User user) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(PATH, Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = sharedPreferences.edit();
         edit.putBoolean(IS_LOG_KEY, true);
