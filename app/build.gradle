@@ -76,5 +76,8 @@ dependencies {
     implementation 'com.github.xiaohaibin:XBanner:androidx_v1.0.8'
     //  首页分类
     implementation 'com.github.xiaohaibin:PageMenuLayout:0.3.0'
+    implementation 'androidx.navigation:navigation-fragment:2.2.2'
+    implementation 'androidx.navigation:navigation-ui:2.2.2'
+
 
 }
