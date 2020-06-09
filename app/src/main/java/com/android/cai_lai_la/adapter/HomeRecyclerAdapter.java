@@ -77,6 +77,9 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             case HomeItemModel.TYPE_RECOMMEND:
                 view = inflater.inflate(R.layout.item_home_recommend, parent, false);
                 return new RecommendHolder(view);
+            case HomeItemModel.TYPE_RECOMMEND_DIVIDE:
+                view = inflater.inflate(R.layout.item_home_recommend_di, parent, false);
+                return new DivideHolder(view);
             default:
                 view = inflater.inflate(R.layout.item_home_footer, parent, false);
                 return new FooterHolder(view);
@@ -218,6 +221,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     class RecommendHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.home_recommend_recycler)
         RecyclerView recyclerView;
+
         public RecommendHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -230,6 +234,12 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     class FooterHolder extends RecyclerView.ViewHolder {
 
         public FooterHolder(@NonNull View itemView) {
+            super(itemView);
+        }
+    }
+
+    class DivideHolder extends RecyclerView.ViewHolder {
+        public DivideHolder(@NonNull View itemView) {
             super(itemView);
         }
     }
