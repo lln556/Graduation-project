@@ -3,7 +3,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:layout_margin="2dp"
-	android:background="@color/home_product_gb"
+	android:background="@drawable/home_title_bar_search_corner_bg"
 	xmlns:app="http://schemas.android.com/apk/res-auto">
 <!--	图片	-->
 	<ImageView

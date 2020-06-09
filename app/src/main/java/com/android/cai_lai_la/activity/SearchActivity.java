@@ -18,7 +18,7 @@ import scut.carson_ho.searchview.bCallBack;
 
 public class SearchActivity extends AppCompatActivity {
     public static final String INTENT_KEY = "search_key";
-    public static final String TAG = "home activity";
+    public static final String TAG = "search activity";
     @BindView(R.id.search_view)
     SearchView searchView;
     @Override

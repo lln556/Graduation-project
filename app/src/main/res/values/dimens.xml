@@ -4,4 +4,6 @@
 	<dimen name="home_product_smaller">8sp</dimen>
 	<dimen name="home_category_margin_left_right">10dp</dimen>
 	<dimen name="home_category_item_margin_left_right">15dp</dimen>
+	<dimen name="search_result_title_icon">30dp</dimen>
+	<dimen name="search_result_title_search">20dp</dimen>
 </resources>

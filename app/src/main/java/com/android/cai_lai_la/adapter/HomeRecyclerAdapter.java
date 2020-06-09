@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.stx.xhb.androidx.XBanner;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -114,7 +115,6 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             CategoryHolder holder = (CategoryHolder) viewHolder;
             // 设置数据
             Runnable runnable = new Runnable() {
-
                 @Override
                 public void run() {
                     Log.i(TAG, "onBindViewHolder: 获取到所有分类信息");
@@ -148,6 +148,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 @Override
                 public void run() {
                     List<Product> list = ProductController.list();
+                    Collections.shuffle(list);  // 随机打乱
                     activity.runOnUiThread(() -> {
                         // 设置布局
                         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
@@ -217,7 +218,6 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     class RecommendHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.home_recommend_recycler)
         RecyclerView recyclerView;
-
         public RecommendHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
