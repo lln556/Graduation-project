@@ -16,4 +16,5 @@
 	<color name="cart_Grayan">#E4E4E4</color>
 	<color name="search_result_bg">#C6EEEEEE</color>
 	<color name="home_cate_bg">#F5F5F5</color>
+	<color name="card_bg">#F5F5F5</color>
 </resources>

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.android.cai_lai_la.MainActivity;
 import com.android.cai_lai_la.R;
+import com.android.cai_lai_la.activity.ProductDetailActivity;
 import com.android.cai_lai_la.controller.ProductPicController;
 import com.android.cai_lai_la.model.Product;
 import com.android.cai_lai_la.model.ProductPic;
@@ -95,6 +96,14 @@ public class SearchResultRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
             holder.title.setText(String.format("%s %s", product.getTitle(), product.getSubtitle()));
             holder.price.setText(String.format("￥%.2f", product.getCurrentprice()));
             holder.keep.setText(String.format("剩余%d件", product.getStorenum()));
+            holder.imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(activity, ProductDetailActivity.class);
+                    intent.putExtra(ProductDetailActivity.INTENT_PRODUCT, product);
+                    activity.startActivity(intent);
+                }
+            });
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {

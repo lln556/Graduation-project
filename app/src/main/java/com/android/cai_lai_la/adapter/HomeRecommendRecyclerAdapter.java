@@ -58,6 +58,7 @@ public class HomeRecommendRecyclerAdapter extends RecyclerView.Adapter<RecyclerV
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(activity, ProductDetailActivity.class);
+                intent.putExtra(ProductDetailActivity.INTENT_PRODUCT, product);
                 activity.startActivity(intent);
             }
         });
