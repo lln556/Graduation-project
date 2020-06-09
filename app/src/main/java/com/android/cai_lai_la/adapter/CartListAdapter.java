@@ -2,6 +2,7 @@ package com.android.cai_lai_la.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +10,11 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.cai_lai_la.R;
+import com.android.cai_lai_la.activity.ProductDetailActivity;
 import com.android.cai_lai_la.callback.OnClickAddCloseListenter;
 import com.android.cai_lai_la.callback.OnClickListenterModel;
 import com.android.cai_lai_la.controller.ProductPicController;
@@ -97,6 +100,16 @@ public class CartListAdapter extends BaseAdapter {
                 onClickListenterModel.onItemClick(viewHolder.checkBox.isChecked(),v,position);
             }
         });
+
+        viewHolder.details.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ProductDetailActivity.class);
+                intent.putExtra(ProductDetailActivity.INTENT_PRODUCT,list.get(position));
+                activity.startActivity(intent);
+            }
+        });
         return convertView;
     }
 
@@ -124,6 +137,8 @@ public class CartListAdapter extends BaseAdapter {
         Button btnNum;
         @BindView(R.id.item_chlid_image)
         ImageView imageView;
+        @BindView(R.id.detalis)
+        LinearLayout details;
 
         public ViewHolder(View view, int position) {
             ButterKnife.bind(this, view);//其实就是根据我们自己提供的根布局来绑定控件
