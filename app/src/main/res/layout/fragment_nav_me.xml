@@ -29,6 +29,7 @@
 		android:paddingLeft="10dp"
 		android:paddingRight="10dp"
 		android:text="用户名"
+		android:textSize="19dp"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.498"
@@ -133,4 +134,47 @@
 		app:layout_constraintRight_toRightOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
 		app:layout_constraintVertical_bias="0.317" />
+
+    <ImageView
+        android:id="@+id/personalInfo_ImageView_second"
+        android:layout_width="379dp"
+        android:layout_height="165dp"
+        android:background="#ffffff"
+        android:drawable="@drawable/rectangle"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.8" />
+    <Button
+        android:id="@+id/personalInfo_button_seventh"
+        android:layout_width="373dp"
+        android:layout_height="33dp"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical"
+        android:paddingLeft="25dp"
+        android:paddingRight="10dp"
+        android:text="我的收货地址"
+        android:textSize="19dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.600" />
+
+    <TextView
+        android:id="@+id/personalInfo_textView_second"
+        android:layout_width="130dp"
+        android:layout_height="29dp"
+        android:drawableRight="@drawable/jiantou"
+        android:gravity="center"
+        android:text="设置收货地址"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.932"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.604" />
 </androidx.constraintlayout.widget.ConstraintLayout>
