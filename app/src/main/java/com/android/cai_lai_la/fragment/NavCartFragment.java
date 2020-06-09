@@ -1,5 +1,6 @@
 package com.android.cai_lai_la.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,6 +23,7 @@ import com.android.cai_lai_la.model.Cart;
 import com.android.cai_lai_la.model.Product;
 import com.android.cai_lai_la.model.ui.CartInfo;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
@@ -98,7 +100,7 @@ public class NavCartFragment extends Fragment {
                 if (data.size() == 0) {
                     Toast.makeText(mContext, "商品不存在", Toast.LENGTH_SHORT).show();
                 } else {
-                    CartListAdapter adapter = new CartListAdapter(mContext, data, cartInfos);
+                    CartListAdapter adapter = new CartListAdapter(mContext, data, cartInfos , getActivity());
                     listView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
 
@@ -135,7 +137,6 @@ public class NavCartFragment extends Fragment {
                         }
                     });
                     showCommodityCalculation(cartInfos);
-
                 }
             }
         }
