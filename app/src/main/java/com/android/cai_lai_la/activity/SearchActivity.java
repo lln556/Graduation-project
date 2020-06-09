@@ -1,6 +1,7 @@
 package com.android.cai_lai_la.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -16,7 +17,8 @@ import scut.carson_ho.searchview.SearchView;
 import scut.carson_ho.searchview.bCallBack;
 
 public class SearchActivity extends AppCompatActivity {
-    public static final String TAG = "home activity";
+    public static final String INTENT_KEY = "search_key";
+    public static final String TAG = "search activity";
     @BindView(R.id.search_view)
     SearchView searchView;
     @Override
@@ -48,6 +50,9 @@ public class SearchActivity extends AppCompatActivity {
             public void SearchAciton(String string) {
                 Log.i(TAG, "SearchAciton: 搜索->" + string);
                 Toast.makeText(SearchActivity.this, string, Toast.LENGTH_LONG);
+                Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+                intent.putExtra(INTENT_KEY, string);
+                startActivity(intent);
             }
         });
     }

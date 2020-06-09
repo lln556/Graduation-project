@@ -9,6 +9,7 @@
 		android:layout_height="wrap_content"
 		app:layout_constraintTop_toTopOf="parent"
 		android:nestedScrollingEnabled="false"
+		android:background="@color/home_cate_bg"
 		android:layout_marginLeft="@dimen/home_category_margin_left_right"
 		android:layout_marginRight="@dimen/home_category_margin_left_right"
 		/>
