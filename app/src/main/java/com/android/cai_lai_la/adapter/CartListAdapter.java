@@ -39,11 +39,6 @@ public class CartListAdapter extends BaseAdapter {
         this.list = list;
         this.cartInfos = cartInfos;
     }
-    public CartListAdapter(Context context, List<Product> list){
-
-        this.layoutInflater = LayoutInflater.from(context);
-        this.list = list;
-    }
 
     @Override
     public int getCount() {
