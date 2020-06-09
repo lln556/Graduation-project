@@ -1,6 +1,5 @@
 package com.android.cai_lai_la.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,25 +7,22 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
 
 import com.android.cai_lai_la.R;
 import com.android.cai_lai_la.adapter.CartListAdapter;
 import com.android.cai_lai_la.callback.OnClickAddCloseListenter;
 import com.android.cai_lai_la.callback.OnClickListenterModel;
 import com.android.cai_lai_la.controller.CartController;
-import com.android.cai_lai_la.model.Cart;
+import com.android.cai_lai_la.controller.UserController;
 import com.android.cai_lai_la.model.Product;
+import com.android.cai_lai_la.model.User;
 import com.android.cai_lai_la.model.ui.CartInfo;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +38,9 @@ import butterknife.OnClick;
  */
 public class NavCartFragment extends Fragment {
     private boolean isGetData = false;
-    private int uid = 1;  //用户编号
+    private int uid;  //用户编号
     private Context mContext;
+    private boolean isLog;
     CartInfo cartInfo;  //购物车信息
     double price;
     int num;
@@ -86,6 +83,7 @@ public class NavCartFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.mContext = getActivity();
+        this.isLog = UserController.isLog(mContext);
     }
 
     @Override
@@ -94,6 +92,7 @@ public class NavCartFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_nav_cart, container, false);
         ButterKnife.bind(this, view);  // 自动绑定
+        setUid(isLog);
         initData();
         return view;
     }
@@ -112,7 +111,6 @@ public class NavCartFragment extends Fragment {
                     c1.setCurrentprice(data.get(i).getCurrentprice());
                     cartInfos.add(c1);
                 }
-
                 if (data.size() == 0) {
                     Toast.makeText(mContext, "商品不存在", Toast.LENGTH_SHORT).show();
                 } else {
@@ -211,5 +209,14 @@ public class NavCartFragment extends Fragment {
     @OnClick(R.id.cart_shopp_moular)
     public void onClick() {
         Toast.makeText(mContext,"提交订单:  "+cartMoney.getText().toString()+"元",Toast.LENGTH_LONG).show();
+    }
+
+    public void setUid(boolean isLog){
+        if (isLog){
+            User user = UserController.loadUser(mContext);
+            uid = user.getUid();
+        } else{
+            uid = 1;
+        }
     }
 }
