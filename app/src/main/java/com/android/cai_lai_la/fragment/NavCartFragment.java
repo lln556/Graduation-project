@@ -1,5 +1,6 @@
 package com.android.cai_lai_la.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,6 +8,7 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,6 +24,8 @@ import com.android.cai_lai_la.model.Cart;
 import com.android.cai_lai_la.model.Product;
 import com.android.cai_lai_la.model.ui.CartInfo;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
@@ -37,9 +41,10 @@ import butterknife.OnClick;
  * create an instance of this fragment.
  */
 public class NavCartFragment extends Fragment {
-    private int uid = 1;//用户编号
+    private boolean isGetData = false;
+    private int uid = 1;  //用户编号
     private Context mContext;
-    CartInfo cartInfo;
+    CartInfo cartInfo;  //购物车信息
     double price;
     int num;
 
@@ -65,6 +70,19 @@ public class NavCartFragment extends Fragment {
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            initData();
+            isGetData = true;
+            //相当于Fragment的onResume，为true时，Fragment已经可见
+        } else {
+            isGetData = false;
+            // 相当于Fragment的onPause，为false时，Fragment不可见
+        }
+    }
+
+        @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.mContext = getActivity();
@@ -98,7 +116,7 @@ public class NavCartFragment extends Fragment {
                 if (data.size() == 0) {
                     Toast.makeText(mContext, "商品不存在", Toast.LENGTH_SHORT).show();
                 } else {
-                    CartListAdapter adapter = new CartListAdapter(mContext, data, cartInfos);
+                    CartListAdapter adapter = new CartListAdapter(mContext, data, cartInfos , getActivity());
                     listView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
 
@@ -135,7 +153,6 @@ public class NavCartFragment extends Fragment {
                         }
                     });
                     showCommodityCalculation(cartInfos);
-
                 }
             }
         }
