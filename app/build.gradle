@@ -78,6 +78,8 @@ dependencies {
     implementation 'com.github.xiaohaibin:PageMenuLayout:0.3.0'
     // 搜索页面
     implementation 'com.carson_ho:SearchLayout:1.0.1'
+    implementation 'androidx.navigation:navigation-fragment:2.2.2'
+    implementation 'androidx.navigation:navigation-ui:2.2.2'
 
     // ------- 刘律宁 -------
 }

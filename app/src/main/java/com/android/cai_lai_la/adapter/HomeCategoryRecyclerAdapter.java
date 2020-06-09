@@ -40,14 +40,12 @@ public class HomeCategoryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.i(TAG, "onCreateViewHolder: 为分类栏初始化view"); 
         View view = inflater.inflate(R.layout.item_home_category_item, parent, false);
         return new CategoryItemHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-        Log.i(TAG, "onBindViewHolder: 创建菜单项");
         CategoryItemHolder holder = (CategoryItemHolder) viewHolder;
         ProductClass productClass = list.get(position);
         Log.i(TAG, "onBindViewHolder: 分类信息为 " +productClass.getClassname());

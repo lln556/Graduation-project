@@ -1,5 +1,6 @@
 package com.android.cai_lai_la.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import com.android.cai_lai_la.R;
 import com.android.cai_lai_la.model.ProductPic;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
@@ -21,9 +23,19 @@ public class LoadImageUtils {
      * @param imageView 载入的位置
      * @param defaultImage 默认图片
      */
+    @SuppressLint("CheckResult")
     public static void load(Activity activity, Context context, Object src, ImageView imageView, int defaultImage) {
         activity.runOnUiThread(() -> {
-            RequestOptions options = new RequestOptions().error(defaultImage).placeholder(defaultImage);
+            // 设置圆角
+            RoundedCorners roundedCorners = new RoundedCorners(30);
+//            RequestOptions options = new RequestOptions()
+//                    .error(defaultImage)
+//                    .placeholder(defaultImage)
+//                    ;
+            RequestOptions options = RequestOptions.bitmapTransform(roundedCorners)
+                    .error(defaultImage)
+                    .placeholder(defaultImage);
+
             Log.i(TAG, "load: 开始加载图片到" + imageView.getId());
             Glide.with(context)
                     .load(src)

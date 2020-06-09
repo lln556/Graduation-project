@@ -86,7 +86,7 @@ public class NavMeFragment extends Fragment {
         Drawable drawable5 = getResources().getDrawable(R.drawable.afs);
         drawable5.setBounds(0, 0, 60, 60);
         aftersale_service.setCompoundDrawables(null, drawable5, null, null);
-        view.findViewById(R.id.personalInfo_button_fourth).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.personalInfo_button_fifth).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
             }
