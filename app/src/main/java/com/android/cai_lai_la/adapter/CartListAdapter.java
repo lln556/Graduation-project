@@ -74,7 +74,7 @@ public class CartListAdapter extends BaseAdapter {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                RequestOptions options = new RequestOptions().error(R.drawable.test1).placeholder(R.drawable.test1);
+                 RequestOptions options = new RequestOptions().error(R.drawable.test1).placeholder(R.drawable.test1);
                 List<ProductPic> picList = ProductPicController.list(product.getPid());
                 activity.runOnUiThread(new Runnable() {
                     @Override
