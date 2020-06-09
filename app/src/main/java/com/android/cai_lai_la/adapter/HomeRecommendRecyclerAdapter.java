@@ -3,6 +3,7 @@ package com.android.cai_lai_la.adapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.cai_lai_la.R;
+import com.android.cai_lai_la.activity.ProductDetailActivity;
 import com.android.cai_lai_la.controller.ProductPicController;
 import com.android.cai_lai_la.model.Product;
 import com.android.cai_lai_la.model.ProductPic;
@@ -52,6 +54,13 @@ public class HomeRecommendRecyclerAdapter extends RecyclerView.Adapter<RecyclerV
         holder.title.setText(String.format("%s，%s", product.getTitle(), product.getSubtitle()));
         holder.price.setText(String.format("￥%.2f元", product.getCurrentprice()));
         holder.keep.setText(String.format("剩余%d件", product.getStorenum()));
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activity, ProductDetailActivity.class);
+                activity.startActivity(intent);
+            }
+        });
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
