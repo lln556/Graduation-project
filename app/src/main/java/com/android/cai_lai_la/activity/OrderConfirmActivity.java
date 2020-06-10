@@ -79,8 +79,8 @@ public class OrderConfirmActivity extends AppCompatActivity {
                 //模拟用户已经登录
                 User user = new User();
                 user.setUid(1);
-                user.setNickname("sadfrj");
-                user.setUsertel("990808");
+                user.setNickname("刘律宁");
+                user.setUsertel("18013591965");
 
 
 
