@@ -1,6 +1,7 @@
 package com.android.cai_lai_la.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.android.cai_lai_la.R;
+import com.android.cai_lai_la.activity.OrderConfirmActivity;
 import com.android.cai_lai_la.adapter.CartListAdapter;
 import com.android.cai_lai_la.callback.OnClickAddCloseListenter;
 import com.android.cai_lai_la.callback.OnClickListenterModel;
@@ -24,6 +26,7 @@ import com.android.cai_lai_la.model.Product;
 import com.android.cai_lai_la.model.User;
 import com.android.cai_lai_la.model.ui.CartInfo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +47,8 @@ public class NavCartFragment extends Fragment {
     CartInfo cartInfo;  //购物车信息
     double price;
     int num;
+    private List<Product> productList = new ArrayList();
+    private List<CartInfo> cartInfos = new ArrayList();
 
     @BindView(R.id.cart_listView)
     ListView listView;
@@ -104,7 +109,7 @@ public class NavCartFragment extends Fragment {
             if (msg.what == 0) {
                 ArrayList arrayList = msg.getData().getParcelableArrayList("data");
                 List<Product> data = (List<Product>) arrayList.get(0);
-                List<CartInfo> cartInfos = new ArrayList();
+
 
                 for (int i = 0; i < data.size(); i++) {
                     CartInfo c1 = new CartInfo();
@@ -161,7 +166,7 @@ public class NavCartFragment extends Fragment {
 
             @Override
             public void run() {
-                List<Product> productList = new ArrayList();
+
                 productList = CartController.list(uid);
 
                 ArrayList arrayList = new ArrayList();//用于传递list的集合
@@ -209,6 +214,11 @@ public class NavCartFragment extends Fragment {
     @OnClick(R.id.cart_shopp_moular)
     public void onClick() {
         Toast.makeText(mContext,"提交订单:  "+cartMoney.getText().toString()+"元",Toast.LENGTH_LONG).show();
+        // 跳转到订单确认界面
+        Intent intent = new Intent(mContext, OrderConfirmActivity.class);
+        intent.putExtra(OrderConfirmActivity.INTENT_PRODUCT, (Serializable) productList);
+        intent.putExtra(OrderConfirmActivity.INTENT_CARTINFO, (Serializable) cartInfos);
+        getActivity().startActivity(intent);
     }
 
     public void setUid(boolean isLog){
