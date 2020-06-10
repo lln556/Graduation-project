@@ -10,9 +10,10 @@
 	<color name="home_product_price">#d92027</color>
 	<color name="search_corner_bg">#fff</color>
 	<color name="bottom_navigation_active">#fff</color>
-
+	<color name="gray3">#9C9C9C</color>
+	<color name="gray9">#CFCFCF</color>
 	<color name="cart_order">#E8321D</color>
-
+	<color name="black">#000000</color>
 	<color name="cart_Grayan">#E4E4E4</color>
 	<color name="search_result_bg">#C6EEEEEE</color>
 	<color name="home_cate_bg">#F5F5F5</color>

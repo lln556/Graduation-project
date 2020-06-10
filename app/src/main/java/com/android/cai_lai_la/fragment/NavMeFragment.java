@@ -1,5 +1,6 @@
 package com.android.cai_lai_la.fragment;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.android.cai_lai_la.R;
+import com.android.cai_lai_la.activity.PersonalInfoActivity;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link NavMeFragment#newInstance} factory method to
@@ -51,6 +54,7 @@ public class NavMeFragment extends Fragment {
         view.findViewById(R.id.personalInfo_button_first).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity( new Intent(getActivity(), PersonalInfoActivity.class));
             }
         });
         Button wallet = (Button)view.findViewById(R.id.personalInfo_button_second);
@@ -103,6 +107,7 @@ public class NavMeFragment extends Fragment {
         view.findViewById(R.id.personalInfo_button_seventh).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
             }
         });
 
