@@ -4,6 +4,9 @@ public class HomeItemModel {
     public static final int TYPE_CAROUSEL = 1;
     public static final int TYPE_CATEGORY = 2;
     public static final int TYPE_RECOMMEND = 3;
+    public static final int TYPE_RECOMMEND_DIVIDE = 4;
+    public static final int TYPE_FOOTER = 5;
+
 
     private int type;
 

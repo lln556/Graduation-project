@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	app:layout_behavior="@string/appbar_scrolling_view_behavior"
+	tools:context=".activity.ProductDetailActivity"
+	android:fillViewport="true"
+	tools:showIn="@layout/activity_product_detail">
+	
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_margin="10dp">
+		<!-- 背景 -->
+		<ImageView
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:background="@drawable/product_card_bg"
+			app:layout_constraintBottom_toBottomOf="@id/old_price"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintTop_toTopOf="@id/current_price" />
+		
+		<ImageView
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:background="@drawable/product_card_bg"
+			app:layout_constraintBottom_toBottomOf="@id/product_spci"
+			app:layout_constraintLeft_toLeftOf="@id/product_spci"
+			app:layout_constraintTop_toTopOf="@id/product_title" />
+		<!-- 价格 -->
+
+		
+		<TextView
+			android:id="@+id/current_price"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="5dp"
+			android:text="10.00"
+			android:textColor="@color/home_head"
+			android:textSize="@dimen/product_price"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
+		
+		<TextView
+			android:id="@+id/old_price"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="8dp"
+			android:text="15.99"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/current_price" />
+		
+		<TextView
+			android:id="@+id/product_keep"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginRight="5dp"
+			android:text="剩余200件"
+			app:layout_constraintBaseline_toBaselineOf="@+id/old_price"
+			app:layout_constraintRight_toRightOf="parent" />
+		
+		<TextView
+			android:id="@+id/product_title"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="5dp"
+			android:text="窝窝头，两块钱四个，好吃不贵"
+			android:textColor="#000"
+			android:textSize="@dimen/product_title"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/old_price" />
+		
+		<TextView
+			android:id="@+id/product_spci"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="5dp"
+			android:text="500g"
+			app:layout_constraintHorizontal_chainStyle="spread_inside"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintRight_toLeftOf="@+id/product_life_time"
+			app:layout_constraintTop_toBottomOf="@+id/product_title" />
+		
+		<TextView
+			android:id="@+id/product_life_time"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="5dp"
+			android:text="保质期7天"
+			app:layout_constraintBaseline_toBaselineOf="@+id/product_spci"
+			app:layout_constraintLeft_toRightOf="@+id/product_spci"
+			app:layout_constraintRight_toLeftOf="@+id/product_birth_date" />
+		
+		<TextView
+			android:id="@+id/product_birth_date"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="5dp"
+			android:text="生成日期：2020年6月9日"
+			app:layout_constraintBaseline_toBaselineOf="@+id/product_spci"
+			app:layout_constraintLeft_toRightOf="@id/product_life_time"
+			app:layout_constraintRight_toRightOf="parent" />
+		<ImageView
+			android:id="@+id/product_div"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:src="@drawable/shangpingxingxi"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/product_spci" />
+		
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/product_detail_recycler"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/product_div"
+			/>
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

@@ -14,7 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
-        <activity android:name=".activity.Main2Activity"></activity>
+        <activity android:name=".activity.OrderConfirmActivity"></activity>
+        <activity
+            android:name=".activity.ProductDetailActivity"
+            android:label="@string/title_activity_product_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.SearchResultActivity" />
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.PersonalInfoActivity" />
