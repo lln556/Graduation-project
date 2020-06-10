@@ -47,6 +47,7 @@ public class NavCartFragment extends Fragment {
     CartInfo cartInfo;  //购物车信息
     double price;
     int num;
+    private String money;
     private List<Product> productList = new ArrayList();
     private List<CartInfo> cartInfos = new ArrayList();
 
@@ -143,13 +144,11 @@ public class NavCartFragment extends Fragment {
                         public void onItemClick(View view, int index, int position, int num) {
                             if (index == 1) {
                                 if (num > 1) {
-                                    CartInfo cartinfoClose = (CartInfo) cartInfos.get(position);
-                                    cartinfoClose.setNum((num - 1));
+                                    cartInfos.get(position).setNum(num - 1);
                                     adapter.notifyDataSetChanged();
                                 }
                             } else {
-                                CartInfo cartinfoAdd = (CartInfo) cartInfos.get(position);
-                                cartinfoAdd.setNum((num + 1));
+                                cartInfos.get(position).setNum(num + 1);
                                 adapter.notifyDataSetChanged();
                             }
                             showCommodityCalculation(cartInfos);
@@ -199,7 +198,7 @@ public class NavCartFragment extends Fragment {
             return;
         }
         try {
-            String money=String.valueOf(price);
+            money=String.valueOf(price);
             cartNum.setText("共"+num+"件商品");
             if (money.substring(money.indexOf("."),money.length()).length()>2){
                 cartMoney.setText("¥ "+money.substring(0,(money.indexOf(".")+3)));
@@ -213,12 +212,26 @@ public class NavCartFragment extends Fragment {
 
     @OnClick(R.id.cart_shopp_moular)
     public void onClick() {
-        Toast.makeText(mContext,"提交订单:  "+cartMoney.getText().toString()+"元",Toast.LENGTH_LONG).show();
-        // 跳转到订单确认界面
-        Intent intent = new Intent(mContext, OrderConfirmActivity.class);
-        intent.putExtra(OrderConfirmActivity.INTENT_PRODUCT, (Serializable) productList);
-        intent.putExtra(OrderConfirmActivity.INTENT_CARTINFO, (Serializable) cartInfos);
-        getActivity().startActivity(intent);
+        List<Product> productList_selected = new ArrayList();
+        List<CartInfo> cartInfos_selected = new ArrayList();
+        for(int i = 0; i<cartInfos.size(); i++){
+            if(cartInfos.get(i).ischeck()){
+                productList_selected.add(productList.get(i));
+                cartInfos_selected.add(cartInfos.get(i));
+            }
+        }
+        if(cartInfos_selected.size()==0){
+            Toast.makeText(mContext, "您还没有选择宝贝哦", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Intent intent = new Intent(mContext, OrderConfirmActivity.class);
+            intent.putExtra(OrderConfirmActivity.INTENT_PRODUCT, (Serializable) productList_selected);
+            intent.putExtra(OrderConfirmActivity.INTENT_CARTINFO, (Serializable) cartInfos_selected);
+            intent.putExtra("num",String.valueOf(num));
+            intent.putExtra("price",money.substring(0,(money.indexOf(".")+2)));
+            intent.putExtra("uid",uid);
+            getActivity().startActivity(intent);
+        }
     }
 
     public void setUid(boolean isLog){

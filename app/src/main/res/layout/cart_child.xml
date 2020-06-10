@@ -137,15 +137,15 @@
                             android:layout_height="match_parent"
                             android:background="@color/cart_Grayan"
                             />
+
                         <Button
                             android:id="@+id/item_chlid_add"
                             android:layout_width="26dp"
-                            android:layout_height="match_parent"
-                            android:text="+"
-                            android:gravity="center"
-                            android:background="@android:color/transparent"
+                            android:layout_height="15dp"
                             android:layout_marginRight="2dp"
-                            />
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:text="+" />
                     </LinearLayout>
 
                 </RelativeLayout>

@@ -66,6 +66,7 @@ public class OrderConfirmAdapter extends BaseAdapter {
         viewHolder.name.setText(product.getTitle());
         viewHolder.content.setText(product.getSubtitle());
         viewHolder.price.setText("¥ "+product.getCurrentprice());
+        viewHolder.num.setText(""+cartInfos.get(position).getNum());
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -97,6 +98,8 @@ public class OrderConfirmAdapter extends BaseAdapter {
         TextView content;
         @BindView(R.id.item_chlid_money)
         TextView price;
+        @BindView(R.id.order_num)
+        TextView num;
 
         public ViewHolder(View view){
             ButterKnife.bind(this, view);
