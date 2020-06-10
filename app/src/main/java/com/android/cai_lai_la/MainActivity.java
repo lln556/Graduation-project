@@ -3,11 +3,13 @@ package com.android.cai_lai_la;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.cai_lai_la.activity.LoginActivity;
 import com.android.cai_lai_la.activity.SearchActivity;
 import com.android.cai_lai_la.adapter.ViewPagerAdapter;
 import com.android.cai_lai_la.controller.UserController;
@@ -25,12 +27,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String TAG = "activity_main";
     @BindView(R.id.view_pager)
     AHBottomNavigationViewPager viewPager;
     @BindView(R.id.button_navigation)
     AHBottomNavigation bottomNavigation;
-//    @BindView(R.id.toolbar)
-//    Toolbar toolbar;
     @BindView(R.id.home_head_icon)
     ImageView headImage;
     @BindView(R.id.home_title_address)
@@ -47,6 +48,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+//         TODO: 直接跳转到登录页面
+        Log.i(TAG, "onCreate: " + UserController.isLog(this));
+        if (!UserController.isLog(this)) {
+            Log.i(TAG, "53: 尚未登录，跳转到登录页面");
+            startActivity(new Intent(this, LoginActivity.class));
+        }
+        Log.i(TAG, "56: 已经登录");
         initData();
         initView();
     }
@@ -69,10 +77,10 @@ public class MainActivity extends AppCompatActivity {
         });
         // 设置欢迎语
         boolean isLog = UserController.isLog(this);
-        if (isLog){
+        if (isLog) {
             User user = UserController.loadUser(this);
-            tvTitle.setText(String.format("欢迎%s到来", user.getNickname()));
-        } else{
+            tvTitle.setText(String.format("欢迎%s到来!", user.getNickname()));
+        } else {
             tvTitle.setText(R.string.home_welcome_default);
         }
         // 导航栏设置
@@ -99,9 +107,9 @@ public class MainActivity extends AppCompatActivity {
                                                       @Override
                                                       public boolean onTabSelected(int position, boolean wasSelected) {
                                                           // 设置是否显示最上方title
-                                                          if (position == 0 || position == 1){
-                                                                titleGroup.setVisibility(Group.VISIBLE);
-                                                          } else{
+                                                          if (position == 0 || position == 1) {
+                                                              titleGroup.setVisibility(Group.VISIBLE);
+                                                          } else {
                                                               titleGroup.setVisibility(Group.GONE);
                                                           }
                                                           viewPager.setCurrentItem(position, false);

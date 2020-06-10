@@ -48,4 +48,30 @@ public class CartController {
         int code = body.getIntValue("code");
         return code == 200;
     }
+
+    /** 更新购物车
+     */
+    public static void update(Cart cart){
+        String url = "/cart/update";
+        FormBody.Builder param = new FormBody.Builder();
+        param.add("uid", "" + cart.getUid());
+        param.add("pid", "" + cart.getPid());
+        param.add("num", "" + cart.getNum());
+        PostUtils.postParam(url, param);
+    }
+    public static void update(int uid, int pid, int num){
+        Cart cart = new Cart();
+        cart.setUid(uid);
+        cart.setPid(pid);
+        cart.setNum(num);
+    }
+
+    public static List<Cart> getCartByUid(int uid){
+        String url = "/cart/getAll";
+        FormBody.Builder param = new FormBody.Builder();
+        param.add("uid", "" + uid);
+        JSONObject jsonObject = PostUtils.postParam(url, param);
+        List<Cart> data = jsonObject.getJSONArray("data").toJavaList(Cart.class);
+        return data;
+    }
 }

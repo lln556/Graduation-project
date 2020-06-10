@@ -32,6 +32,29 @@ public class User {
      */
     private Float balance;
 
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "uid=" + uid +
+                ", gid=" + gid +
+                ", nickname='" + nickname + '\'' +
+                ", usertel='" + usertel + '\'' +
+                ", email='" + email + '\'' +
+                ", balance=" + balance +
+                ", password='" + password + '\'' +
+                '}';
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    private String password;
     /**
      * 获取id
      *
@@ -129,18 +152,6 @@ public class User {
      */
     public Float getBalance() {
         return balance;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "uid=" + uid +
-                ", gid=" + gid +
-                ", nickname='" + nickname + '\'' +
-                ", usertel='" + usertel + '\'' +
-                ", email='" + email + '\'' +
-                ", balance=" + balance +
-                '}';
     }
 
     /**

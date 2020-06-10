@@ -9,6 +9,8 @@ import com.android.cai_lai_la.config.Config;
 import com.android.cai_lai_la.model.User;
 import com.android.cai_lai_la.utils.PostUtils;
 
+import java.util.List;
+
 public class UserController {
     public static final String IS_LOG_KEY = "is_save";
     public static final String USER_KEY = "user";
@@ -21,8 +23,15 @@ public class UserController {
     public static boolean isLog(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(PATH, Context.MODE_PRIVATE);
         boolean isLog = sharedPreferences.getBoolean(IS_LOG_KEY, false);// 是否登录
-        boolean containsUser = sharedPreferences.contains("user");
+        boolean containsUser = sharedPreferences.contains(USER_KEY);
         return isLog && containsUser;
+    }
+
+    public static void setLog(Context context, boolean isLog){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PATH, Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = sharedPreferences.edit();
+        edit.putBoolean(IS_LOG_KEY, isLog);
+        edit.commit();
     }
 
     public static int add(User user) {
@@ -41,6 +50,12 @@ public class UserController {
         JSONObject data = body.getJSONObject("data");
         User user1 = data.toJavaObject(User.class);
         return user1;
+    }
+    public static List<User> list(){
+        String url = "/user/list";
+        JSONObject jsonObject = PostUtils.postJson(url, "");
+        List<User> users = jsonObject.getJSONObject("data").getJSONArray("list").toJavaList(User.class);
+        return users;
     }
 
     /**
@@ -64,6 +79,6 @@ public class UserController {
         SharedPreferences.Editor edit = sharedPreferences.edit();
         edit.putBoolean(IS_LOG_KEY, true);
         edit.putString(USER_KEY, JSON.toJSONString(user));
-        edit.apply();
+        edit.commit();
     }
 }

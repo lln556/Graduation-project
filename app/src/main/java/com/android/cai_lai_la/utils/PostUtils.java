@@ -19,6 +19,7 @@ public class PostUtils {
     public static final String TAG = "PostUtils";
     public static JSONObject postJson(String url, String json) {
         Log.i(TAG, "postJson: 通过json获取数据");
+        Log.i(TAG, "postJson: url = " + Config.IP + url);
         String res = "";  // 结果
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
@@ -43,6 +44,7 @@ public class PostUtils {
     public static JSONObject postParam(String url, FormBody.Builder param) {
         String res = "";  // 结果
         Log.i(TAG, "postParam: 通过参数获取数据");
+        Log.i(TAG, "postParam: url = " + Config.IP + url);
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
 //        MediaType mediaType = MediaType.parse("text/plain");

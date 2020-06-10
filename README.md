@@ -106,6 +106,8 @@ Glide.with(context)
       2. https://github.com/Liuqiuyue0/shop
    2. 购物车：https://github.com/DickyQie/android-shoppingcart
    3. 分类：https://github.com/windfallsheng/CommodityClassificationListPageExample
+6. 登录界面参考
+   7. https://sourcey.com/articles/beautiful-android-login-and-signup-screens-with-material-design
 
 ## 规范
 

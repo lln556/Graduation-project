@@ -11,23 +11,22 @@ import android.widget.TextView;
 
 import com.android.cai_lai_la.R;
 import com.android.cai_lai_la.adapter.ProductDetailRecyclerAdapter;
+import com.android.cai_lai_la.controller.CartController;
 import com.android.cai_lai_la.controller.HistoryBrowserController;
 import com.android.cai_lai_la.controller.ProductPicController;
 import com.android.cai_lai_la.controller.UserController;
+import com.android.cai_lai_la.model.Cart;
 import com.android.cai_lai_la.model.HistoryBrowser;
 import com.android.cai_lai_la.model.Product;
 import com.android.cai_lai_la.model.ProductPic;
 import com.android.cai_lai_la.model.User;
-import com.android.cai_lai_la.model.ui.HomeBannerInfoModel;
-import com.bumptech.glide.Glide;
+import com.android.cai_lai_la.utils.LoadImageUtils;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.stx.xhb.androidx.XBanner;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -50,7 +49,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     @BindView(R.id.app_bar)
     AppBarLayout appBarLayout;
     @BindView(R.id.xbanner)
-    XBanner xBanner;  // 滚动图
+    ImageView bannerImage;
     @BindView(R.id.product_detail_recycler)
     RecyclerView recyclerView;
     // 具体的信息
@@ -96,21 +95,8 @@ public class ProductDetailActivity extends AppCompatActivity {
     private void initView() {
         // 设置工具栏
         setSupportActionBar(toolbar);
-        // 设置滚动栏
-        List<HomeBannerInfoModel> bannerInfoList = new ArrayList<>();
-        bannerInfoList.add(new HomeBannerInfoModel(R.drawable.bander1, ""));
-        bannerInfoList.add(new HomeBannerInfoModel(R.drawable.bander2, ""));
-        bannerInfoList.add(new HomeBannerInfoModel(R.drawable.bander3, ""));
-        bannerInfoList.add(new HomeBannerInfoModel(R.drawable.bander4, ""));
-        xBanner.setBannerData(bannerInfoList);
-        xBanner.loadImage(new XBanner.XBannerAdapter() {
-            @Override
-            public void loadBanner(XBanner banner, Object model, View view, int position) {
-                Glide.with(ProductDetailActivity.this)
-                        .load(((HomeBannerInfoModel) model).getImageId())
-                        .into((ImageView) view);
-            }
-        });
+        // 设置顶部图片
+        LoadImageUtils.load(this, this, productPicList, bannerImage);
 
         // 设置标题
         collapsingToolbarLayout.setTitle("商品详情");
@@ -119,8 +105,19 @@ public class ProductDetailActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Cart cart;
+                // 只有在登陆的的时候添加购物车信息
+                if (UserController.isLog(ProductDetailActivity.this)){
+                    User user = UserController.loadUser(ProductDetailActivity.this);
+                    List<Product> list = CartController.list(user.getUid());
+                    // 判断用户是否有该商品，如果有则在基础上添加，如果没有则是创建新的
+                    for (Product p :
+                            list) {
+                    }
+                } else {
+                Snackbar.make(view, "您尚未登录，请登陆后再尝试哟", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                }
             }
         });
         // 设置图片 recycler

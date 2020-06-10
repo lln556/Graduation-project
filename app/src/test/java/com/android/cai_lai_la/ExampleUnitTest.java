@@ -4,9 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.android.cai_lai_la.controller.CartController;
 import com.android.cai_lai_la.controller.ProductClassController;
 import com.android.cai_lai_la.controller.ProductPicController;
+import com.android.cai_lai_la.controller.UserController;
+import com.android.cai_lai_la.model.Cart;
 import com.android.cai_lai_la.model.Product;
 import com.android.cai_lai_la.model.ProductClass;
 import com.android.cai_lai_la.model.ProductPic;
+import com.android.cai_lai_la.model.User;
 
 import org.junit.Test;
 
@@ -54,5 +57,38 @@ public class ExampleUnitTest {
         System.out.println(JSON.toJSON(list1).toString());
     }
 
+    @Test
+    public void testCartController(){
+        System.out.println("获取的用户购物车");
+        List<Cart> cartList1 = CartController.getCartByUid(-1);
+        for (Cart cart :
+                cartList1) {
+            System.out.println(cart);
+        }
 
+        System.out.println("获取id为1的用户购物车");
+        List<Cart> cartList = CartController.getCartByUid(1);
+        for (Cart cart :
+                cartList) {
+            System.out.println(cart);
+        }
+
+        if (cartList.size() > 0){
+            Cart cart = cartList.get(0);
+            System.out.printf("更新uid = %d， pid=%d, num=%d, 设置num++\n", cart.getUid(), cart.getPid(), cart.getNum());
+            cart.setNum(cart.getNum() + 1);
+            System.out.println("更新后的cart" + cart);
+            CartController.update(cart);
+        }
+    }
+
+    @Test
+    public void testUserController(){
+        System.out.println("获取所有用户信息");
+        List<User> list = UserController.list();
+        for (User user :
+                list) {
+            System.out.println(user);
+        }
+    }
 }

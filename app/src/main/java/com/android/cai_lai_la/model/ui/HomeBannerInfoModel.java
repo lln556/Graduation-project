@@ -6,6 +6,7 @@ public class HomeBannerInfoModel implements BaseBannerInfo {
 
     private int imageId;  // 资源id
     private String title;  //  项目标题
+    private String url;
 
     public int getImageId() {
         return imageId;
@@ -24,5 +25,17 @@ public class HomeBannerInfoModel implements BaseBannerInfo {
     @Override
     public String getXBannerTitle() {
         return title;
+    }
+
+    public HomeBannerInfoModel(String url) {
+        this.url = url;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
