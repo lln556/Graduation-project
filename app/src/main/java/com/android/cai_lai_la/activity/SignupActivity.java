@@ -3,6 +3,7 @@ package com.android.cai_lai_la.activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.cai_lai_la.R;
+import com.android.cai_lai_la.controller.UserController;
+import com.android.cai_lai_la.model.User;
 
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
@@ -21,7 +24,7 @@ public class SignupActivity extends AppCompatActivity {
     @BindView(R.id.input_name)
     EditText nameText;
     @BindView(R.id.input_tel)
-    EditText pwText;
+    EditText telText;
     @BindView(R.id.input_email)
     EditText emailText;
     @BindView(R.id.input_password)
@@ -31,13 +34,15 @@ public class SignupActivity extends AppCompatActivity {
     @BindView(R.id.link_login)
     TextView loginLink;
 
+    User user;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         ButterKnife.bind(this);
-
-
+        initDate();
+        initView();
     }
 
 
@@ -53,7 +58,6 @@ public class SignupActivity extends AppCompatActivity {
         loginLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Finish the registration screen and return to the Login activity
                 finish();
             }
         });
@@ -79,21 +83,26 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog.show();
 
         String name = nameText.getText().toString();
+        String tel = telText.getText().toString();
         String email = emailText.getText().toString();
         String password = passwordText.getText().toString();
 
-        // TODO: Implement your own signup logic here.
+        user = new User();
+        user.setNickname(name);
+        user.setUsertel(tel);
+        user.setEmail(email);
+        user.setPassword(password);
 
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onSignupSuccess or onSignupFailed
-                        // depending on success
-                        onSignupSuccess();
-                        // onSignupFailed();
-                        progressDialog.dismiss();
-                    }
-                }, 3000);
+        // 注册用户
+        new Thread(){
+            @Override
+            public void run() {
+                // 保存到服务器，保存到本地，设置登录状态
+                user = UserController.add(user);
+                UserController.setLog(SignupActivity.this, true);
+                UserController.saveUser(SignupActivity.this, user);
+            }
+        };
     }
 
 
@@ -105,7 +114,6 @@ public class SignupActivity extends AppCompatActivity {
 
     public void onSignupFailed() {
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
-
         signupButton.setEnabled(true);
     }
 
@@ -115,23 +123,32 @@ public class SignupActivity extends AppCompatActivity {
         String name = nameText.getText().toString();
         String email = emailText.getText().toString();
         String password = passwordText.getText().toString();
+        String tel = telText.getText().toString();
 
         if (name.isEmpty() || name.length() < 3) {
-            nameText.setError("at least 3 characters");
+            nameText.setError("至少3个字符");
             valid = false;
         } else {
             nameText.setError(null);
         }
 
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailText.setError("enter a valid email address");
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailText.setError("请输入正确的邮箱");
             valid = false;
         } else {
             emailText.setError(null);
         }
 
+        if (tel.isEmpty() || Patterns.PHONE.matcher(tel).matches())
+        {
+
+            telText.setError("请输入正确的电话");
+            valid = false;
+        } else{
+            telText.setError(null);
+        }
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            passwordText.setError("between 4 and 10 alphanumeric characters");
+            passwordText.setError("长度在4~10之间");
             valid = false;
         } else {
             passwordText.setError(null);

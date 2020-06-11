@@ -34,13 +34,13 @@ public class UserController {
         edit.commit();
     }
 
-    public static int add(User user) {
+    public static User add(User user) {
         String userJson = JSON.toJSONString(user);
         String url = "/user/add";
         JSONObject body = PostUtils.postJson(url, userJson);
         JSONObject data = body.getJSONObject("data");
         User user1 = data.toJavaObject(User.class);
-        return user1.getUid();
+        return user;
     }
 
     public static User update(User user) {
@@ -79,6 +79,17 @@ public class UserController {
         SharedPreferences.Editor edit = sharedPreferences.edit();
         edit.putBoolean(IS_LOG_KEY, true);
         edit.putString(USER_KEY, JSON.toJSONString(user));
+        edit.commit();
+    }
+
+    /**
+     * 退出登录
+     */
+    public static void logout(Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PATH, Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = sharedPreferences.edit();
+        edit.putBoolean(IS_LOG_KEY,false);
+        edit.putString(USER_KEY, "");
         edit.commit();
     }
 }
