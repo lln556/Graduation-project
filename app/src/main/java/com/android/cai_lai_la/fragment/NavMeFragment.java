@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import com.android.cai_lai_la.R;
 import com.android.cai_lai_la.activity.PersonalInfoActivity;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,7 +22,6 @@ import com.android.cai_lai_la.activity.PersonalInfoActivity;
  */
 public class NavMeFragment extends Fragment {
     public NavMeFragment() {
-        // Required empty public constructor
     }
 
     public static NavMeFragment newInstance(){
@@ -38,12 +37,15 @@ public class NavMeFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_nav_me, container, false);
-
-
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

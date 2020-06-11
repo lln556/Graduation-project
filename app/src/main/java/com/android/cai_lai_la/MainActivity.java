@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "onCreate: " + UserController.isLog(this));
         if (!UserController.isLog(this)) {
             Log.i(TAG, "53: 尚未登录，跳转到登录页面");
-            startActivity(new Intent(this, LoginActivity.class));
+//            startActivity(new Intent(this, LoginActivity.class));
         }
         Log.i(TAG, "56: 已经登录");
         initData();
@@ -70,6 +70,11 @@ public class MainActivity extends AppCompatActivity {
             tvTitle.setText(R.string.home_welcome_default);
         }
         super.onResume();
+        // 设置页面
+        Intent intent = getIntent();
+        int position = intent.getIntExtra("position", 0);
+        viewPager.setCurrentItem(position, false);
+        bottomNavigation.setCurrentItem(position);
     }
 
     /**
@@ -88,14 +93,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, SearchActivity.class));
             }
         });
-//        // 设置欢迎语
-//        boolean isLog = UserController.isLog(this);
-//        if (isLog) {
-//            User user = UserController.loadUser(this);
-//            tvTitle.setText(String.format("欢迎%s到来!", user.getNickname()));
-//        } else {
-//            tvTitle.setText(R.string.home_welcome_default);
-//        }
         // 导航栏设置
         AHBottomNavigationItem item1 = new AHBottomNavigationItem("首页", R.drawable.home, R.color.bottom_navigation_active);
         AHBottomNavigationItem item2 = new AHBottomNavigationItem("分类", R.drawable.category, R.color.bottom_navigation_active);
@@ -125,6 +122,11 @@ public class MainActivity extends AppCompatActivity {
                                                           } else {
                                                               titleGroup.setVisibility(Group.GONE);
                                                           }
+
+                                                          if (position == 3){
+                                                              if (!UserController.isLog(MainActivity.this))
+                                                              startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                                                          }
                                                           viewPager.setCurrentItem(position, false);
                                                           return true;
                                                       }
@@ -142,4 +144,5 @@ public class MainActivity extends AppCompatActivity {
     private void initData() {
 
     }
+
 }

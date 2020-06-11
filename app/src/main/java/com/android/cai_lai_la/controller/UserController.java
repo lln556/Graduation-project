@@ -2,6 +2,7 @@ package com.android.cai_lai_la.controller;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -12,6 +13,7 @@ import com.android.cai_lai_la.utils.PostUtils;
 import java.util.List;
 
 public class UserController {
+    public static final String TAG = "UserController";
     public static final String IS_LOG_KEY = "is_save";
     public static final String USER_KEY = "user";
     public static final String PATH = Config.USER_DATA;
@@ -40,7 +42,7 @@ public class UserController {
         JSONObject body = PostUtils.postJson(url, userJson);
         JSONObject data = body.getJSONObject("data");
         User user1 = data.toJavaObject(User.class);
-        return user;
+        return user1;
     }
 
     public static User update(User user) {
@@ -62,11 +64,14 @@ public class UserController {
      * 获取已保存用户信息
      */
     public static User loadUser(Context context) {
+        Log.i(TAG, "loadUser: 加载用户");
         User user = null;
         if (isLog(context)) {
             SharedPreferences sharedPreferences = context.getSharedPreferences(PATH, Context.MODE_PRIVATE);
             String userJson = sharedPreferences.getString(USER_KEY, "");
+            Log.i(TAG, "loadUser: 用户json为" + userJson);
             user = JSON.parseObject(userJson, User.class);
+            Log.i(TAG, "loadUser: 加载用户信息为" + user);
         }
         return user;
     }

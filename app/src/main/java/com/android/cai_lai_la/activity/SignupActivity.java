@@ -1,6 +1,7 @@
 package com.android.cai_lai_la.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -10,10 +11,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.cai_lai_la.MainActivity;
 import com.android.cai_lai_la.R;
 import com.android.cai_lai_la.controller.UserController;
 import com.android.cai_lai_la.model.User;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,6 +51,10 @@ public class SignupActivity extends AppCompatActivity {
 
 
     private void initView() {
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar != null){
+            supportActionBar.hide();
+        }
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,7 +86,7 @@ public class SignupActivity extends AppCompatActivity {
         final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Creating Account...");
+        progressDialog.setMessage("注册中......");
         progressDialog.show();
 
         String name = nameText.getText().toString();
@@ -92,17 +99,25 @@ public class SignupActivity extends AppCompatActivity {
         user.setUsertel(tel);
         user.setEmail(email);
         user.setPassword(password);
+        user.setBalance((float) 0);
+        user.setGid(1);
 
         // 注册用户
-        new Thread(){
+        new Thread() {
             @Override
             public void run() {
-                // 保存到服务器，保存到本地，设置登录状态
+                // 保存到服务器，保存到本地，设置登录状态, 跳转到主页
                 user = UserController.add(user);
+                Log.i(TAG, "run: 登录用户为" + user);
                 UserController.setLog(SignupActivity.this, true);
                 UserController.saveUser(SignupActivity.this, user);
+                runOnUiThread(()->{
+                    startActivity(new Intent(SignupActivity.this, MainActivity.class));
+                    onSignupSuccess();
+                    progressDialog.dismiss();
+                });
             }
-        };
+        }.start();
     }
 
 
@@ -139,9 +154,8 @@ public class SignupActivity extends AppCompatActivity {
             emailText.setError(null);
         }
 
-        if (tel.isEmpty() || Patterns.PHONE.matcher(tel).matches())
+        if (tel.isEmpty() || !Patterns.PHONE.matcher(tel).matches())
         {
-
             telText.setError("请输入正确的电话");
             valid = false;
         } else{

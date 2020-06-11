@@ -80,4 +80,13 @@
         app:edt_hint_content="未选择"
         app:paddingLeft="@dimen/home_category_item_margin_left_right"
         app:title="生日" />
+    
+    <Button
+        android:id="@+id/bt_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="退出登录"
+		android:background="@color/primary"
+        android:layout_margin="5dp"
+        />
 </LinearLayout>
