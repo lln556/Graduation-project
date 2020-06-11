@@ -20,6 +20,14 @@
 		<activity android:name=".activity.SearchActivity" />
 		<activity android:name=".activity.LoginActivity" />
 		<activity android:name=".activity.SignupActivity" />
+		
+		<activity android:name=".activity.OrderConfirmActivity"></activity>
+		<activity
+			android:name=".activity.ProductDetailActivity"
+			android:label="@string/title_activity_product_detail"
+			android:theme="@style/AppTheme.NoActionBar" />
+		<activity android:name=".activity.PersonalInfoActivity" />
+		
 		<activity
 			android:name=".MainActivity"
 			android:launchMode="singleTask">

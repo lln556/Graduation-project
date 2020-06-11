@@ -35,6 +35,8 @@ public class CartListAdapter extends BaseAdapter {
     private List<CartInfo> cartInfos;
     private List<Product> list;
     private LayoutInflater layoutInflater;
+
+
     public CartListAdapter(Context context, List<Product> list, List<CartInfo> cartInfos, Activity activity){
         this.context = context;
         this.activity = activity;
