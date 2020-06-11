@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.cai_lai_la.R;
 import com.android.cai_lai_la.adapter.OrderConfirmAdapter;
 import com.android.cai_lai_la.controller.AddressController;
+import com.android.cai_lai_la.controller.UserController;
 import com.android.cai_lai_la.model.Address;
 import com.android.cai_lai_la.model.Product;
 import com.android.cai_lai_la.model.User;
@@ -73,14 +74,14 @@ public class OrderConfirmActivity extends AppCompatActivity {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-//                User user = UserController.loadUser(OrderConfirmActivity.this);
+                User user = UserController.loadUser(OrderConfirmActivity.this);
 
-
-                //模拟用户已经登录
-                User user = new User();
-                user.setUid(1);
-                user.setNickname("刘律宁");
-                user.setUsertel("18013591965");
+//
+//                //模拟用户已经登录
+//                User user = new User();
+//                user.setUid(1);
+//                user.setNickname("刘律宁");
+//                user.setUsertel("18013591965");
 
 
 

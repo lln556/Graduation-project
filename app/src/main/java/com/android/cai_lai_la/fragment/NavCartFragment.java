@@ -76,6 +76,9 @@ public class NavCartFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
+            this.mContext = getActivity();
+            this.isLog = UserController.isLog(mContext);
+            setUid(isLog);
             initData();
             isGetData = true;
             //相当于Fragment的onResume，为true时，Fragment已经可见
@@ -89,7 +92,6 @@ public class NavCartFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.mContext = getActivity();
-        this.isLog = UserController.isLog(mContext);
     }
 
     @Override
@@ -239,7 +241,8 @@ public class NavCartFragment extends Fragment {
             User user = UserController.loadUser(mContext);
             uid = user.getUid();
         } else{
-            uid = 1;
+            uid = 0;
+            Toast.makeText(mContext, "您还没有登录哦", Toast.LENGTH_SHORT).show();
         }
     }
 }
