@@ -19,23 +19,28 @@
 		app:layout_constraintTop_toTopOf="parent"
 		app:layout_constraintVertical_bias="0.36" />
 
-	<Button
-		android:id="@+id/personalInfo_button_first"
-		android:layout_width="157dp"
-		android:layout_height="116dp"
-		android:background="@android:color/transparent"
-		android:drawableTop="@drawable/headsculp"
-		android:gravity="center"
-		android:paddingLeft="10dp"
-		android:paddingRight="10dp"
-		android:text="用户名"
-		android:textSize="19dp"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHorizontal_bias="0.498"
-		app:layout_constraintStart_toStartOf="parent"
+	<ImageView
+		android:id="@+id/headImage"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:src="@drawable/ic_user_head"
 		app:layout_constraintTop_toTopOf="parent"
-		app:layout_constraintVertical_bias="0.054" />
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toRightOf="parent"
+		app:layout_constraintBottom_toTopOf="@id/userName"
+		/>
+	<TextView
+		android:id="@+id/userName"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		app:layout_constraintTop_toBottomOf="@id/headImage"
+		android:text="用户名"
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toRightOf="parent"
+		android:textSize="20sp"
+		app:layout_constraintBottom_toTopOf="@id/personalInfo_button_sixth"
+		/>
+		
 
 	<Button
 		android:id="@+id/personalInfo_button_second"

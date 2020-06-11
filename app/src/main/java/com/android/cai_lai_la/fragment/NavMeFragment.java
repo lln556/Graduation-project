@@ -7,13 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.cai_lai_la.R;
 import com.android.cai_lai_la.activity.PersonalInfoActivity;
+import com.android.cai_lai_la.controller.UserController;
+import com.android.cai_lai_la.model.User;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +26,12 @@ import androidx.fragment.app.Fragment;
  * create an instance of this fragment.
  */
 public class NavMeFragment extends Fragment {
+
+    @BindView(R.id.headImage)
+    ImageView headImage;
+
+    @BindView(R.id.userName)
+    TextView userName;
     public NavMeFragment() {
     }
 
@@ -45,20 +56,28 @@ public class NavMeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_nav_me, container, false);
+        View view = inflater.inflate(R.layout.fragment_nav_me, container, false);
+        ButterKnife.bind(this, view);
+
+        headImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), PersonalInfoActivity.class));
+            }
+        });
+
+
+        if (UserController.isLog(getContext())){
+            User user = UserController.loadUser(getContext());
+            userName.setText(user.getNickname());
+        }
+        return view;
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Button touxiang = (Button)view.findViewById(R.id.personalInfo_button_first);
         Drawable drawable1 = getResources().getDrawable(R.drawable.headsculp);
         drawable1.setBounds(0, 0, 120, 120);
-        touxiang.setCompoundDrawables(null, drawable1, null, null);
-        view.findViewById(R.id.personalInfo_button_first).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity( new Intent(getActivity(), PersonalInfoActivity.class));
-            }
-        });
+
         Button wallet = (Button)view.findViewById(R.id.personalInfo_button_second);
         Drawable drawable2 = getResources().getDrawable(R.drawable.wallet);
         drawable2.setBounds(0, 0, 60, 60);
