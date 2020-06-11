@@ -11,13 +11,10 @@ import java.util.List;
 import okhttp3.FormBody;
 
 public class HistoryBrowserController {
-    public static HistoryBrowser add(HistoryBrowser historyBrowser){
+    public static void add(HistoryBrowser historyBrowser){
         String histortbrowseJSON = JSON.toJSONString(historyBrowser);
         String url = "/history/browser/add";
         JSONObject body = PostUtils.postJson(url , histortbrowseJSON);
-        JSONObject data = body.getJSONObject("data");
-        HistoryBrowser historyBrowser1 = data.toJavaObject(HistoryBrowser.class);
-        return historyBrowser1;
     }
 
     /**
