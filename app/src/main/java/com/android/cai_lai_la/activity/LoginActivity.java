@@ -129,12 +129,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        // 防止返回
-        moveTaskToBack(true);
-    }
-
     public void onLoginSuccess() {
         loginButton.setEnabled(true);
         Toast.makeText(getBaseContext(), "登录成功", Toast.LENGTH_LONG).show();

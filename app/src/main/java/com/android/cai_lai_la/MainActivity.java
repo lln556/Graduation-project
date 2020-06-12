@@ -72,9 +72,11 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         // 设置页面
         Intent intent = getIntent();
-        int position = intent.getIntExtra("position", 0);
-        viewPager.setCurrentItem(position, false);
-        bottomNavigation.setCurrentItem(position);
+        int position = intent.getIntExtra("position", -1);
+        if (position >= 0){
+            viewPager.setCurrentItem(position, false);
+            bottomNavigation.setCurrentItem(position);
+        }
     }
 
     /**
