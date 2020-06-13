@@ -1,8 +1,9 @@
 package com.android.cai_lai_la.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Product {
+public class Product implements Serializable {
     /**
      * id
      */

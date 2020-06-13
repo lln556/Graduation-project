@@ -1,5 +1,7 @@
 package com.android.cai_lai_la.controller;
 
+import android.util.Log;
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.android.cai_lai_la.model.Product;
@@ -10,7 +12,9 @@ import java.util.List;
 import okhttp3.FormBody;
 
 public class ProductController {
+    public static final String TAG = "controller product";
     public static List<Product> list(){
+        Log.i(TAG, "list: 从服务器获取所有商品信息");
         String url = "/product/list";
         JSONObject body = PostUtils.postJson(url, "");
         JSONArray list = body.getJSONObject("data").getJSONArray("list");

@@ -12,7 +12,7 @@ public class Cart {
      */
     private Integer pid;
 
-    private Integer num;
+    private Integer num=1;
 
     /**
      * 获取外键，用户id

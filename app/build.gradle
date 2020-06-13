@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.android.cai_lai_la"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -28,7 +28,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
 
     }
-
+    // 测试时log支持
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 ext {
@@ -37,15 +40,19 @@ ext {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    // ------ 公用 ------
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    //  首页分类
-    implementation 'com.github.xiaohaibin:PageMenuLayout:0.3.0'
+
+    // 加载图片
+    implementation('com.github.bumptech.glide:glide:4.8.0')
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     // butter knife
     implementation 'com.jakewharton:butterknife:10.2.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
@@ -63,7 +70,17 @@ dependencies {
     // okhttp
     // https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
     implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.7.2'
+
+    // ------- 曾连杰 -------
     // 轮播图
-    compile 'com.abby.app:xbanner:1.5.7'
-     implementation 'com.github.xiaohaibin:XBanner:androidx_v1.0.8'
+    //    implementation 'com.abby.app:xbanner:1.5.7'
+    implementation 'com.github.xiaohaibin:XBanner:androidx_v1.0.8'
+    //  首页分类
+    implementation 'com.github.xiaohaibin:PageMenuLayout:0.3.0'
+    // 搜索页面
+    implementation 'com.carson_ho:SearchLayout:1.0.1'
+    implementation 'androidx.navigation:navigation-fragment:2.2.2'
+    implementation 'androidx.navigation:navigation-ui:2.2.2'
+
+    // ------- 刘律宁 -------
 }

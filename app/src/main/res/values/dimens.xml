@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<dimen name="home_product">16sp</dimen>
+	<dimen name="home_product_smaller">8sp</dimen>
+	<dimen name="home_category_margin_left_right">10dp</dimen>
+	<dimen name="home_category_item_margin_left_right">15dp</dimen>
+	<dimen name="search_result_title_icon">30dp</dimen>
+	<dimen name="search_result_title_search">20dp</dimen>
+	<dimen name="app_bar_height">180dp</dimen>
+	<dimen name="fab_margin">16dp</dimen>
+	<dimen name="text_margin">16dp</dimen>
+	<dimen name="product_price">30dp</dimen>
+	<dimen name="product_title">15dp</dimen>
+</resources>
