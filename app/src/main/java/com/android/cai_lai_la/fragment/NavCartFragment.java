@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.android.cai_lai_la.R;
 import com.android.cai_lai_la.activity.OrderConfirmActivity;
 import com.android.cai_lai_la.adapter.CartListAdapter;
 import com.android.cai_lai_la.callback.OnClickAddCloseListenter;
+import com.android.cai_lai_la.callback.OnClickDeleteListener;
 import com.android.cai_lai_la.callback.OnClickListenterModel;
 import com.android.cai_lai_la.controller.CartController;
 import com.android.cai_lai_la.controller.UserController;
@@ -29,6 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -37,6 +41,7 @@ import butterknife.OnClick;
  *
  */
 public class NavCartFragment extends Fragment {
+    public static final String TAG = "NavCartFragment";
     CartInfo cartInfo;  //购物车信息
     double price;
     int num;
@@ -55,14 +60,15 @@ public class NavCartFragment extends Fragment {
     private String money;
     private List<Product> productList = new ArrayList();
     private List<CartInfo> cartInfos = new ArrayList();
-    Handler handler = new Handler() {
+    private List<Product> newData;
+    final Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.what == 0) {
                 ArrayList arrayList = msg.getData().getParcelableArrayList("data");
                 List<Product> data = (List<Product>) arrayList.get(0);
-
+                newData = data;
 
                 for (int i = 0; i < data.size(); i++) {
                     CartInfo c1 = new CartInfo();
@@ -82,11 +88,27 @@ public class NavCartFragment extends Fragment {
                     adapter.setOnClickListenterModel(new OnClickListenterModel() {
                         @Override
                         public void onItemClick(boolean isFlang, View view, int position) {
+                            int pid = data.get(position).getPid();
                             cartInfos.get(position).setIscheck(isFlang);
+                            if(isFlang) {
+                                Log.i(TAG,"选中pid为" + pid + "的商品");
+                            } else {
+                                Log.i(TAG, "取消对pid为" + pid + "的商品的勾选");
+                            }
                             showCommodityCalculation(cartInfos);
                         }
                     });
 
+                    /*
+                    * 删除选项
+                    */
+                    adapter.setOnClickDeleteListener(new OnClickDeleteListener() {
+                        @Override
+                        public void onItemClick(View view, int position) {
+                            int pid = data.get(position).getPid();
+                            deleteListItem(position, pid);
+                        }
+                    });
 
                     /**
                      * 数量增加和减少
@@ -97,10 +119,14 @@ public class NavCartFragment extends Fragment {
                             if (index == 1) {
                                 if (num > 1) {
                                     cartInfos.get(position).setNum(num - 1);
+                                    int pid = data.get(position).getPid();
+                                    Log.i(TAG, "pid为" + pid + "的商品数量减一");
                                     adapter.notifyDataSetChanged();
                                 }
                             } else {
                                 cartInfos.get(position).setNum(num + 1);
+                                int pid = data.get(position).getPid();
+                                Log.i(TAG, "pid为" + pid + "的商品数量加一");
                                 adapter.notifyDataSetChanged();
                             }
                             showCommodityCalculation(cartInfos);
@@ -236,5 +262,79 @@ public class NavCartFragment extends Fragment {
             uid = 0;
             Toast.makeText(mContext, "您还没有登录哦", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void deleteListItem(int position, int pid) {
+        Runnable runnable = new Runnable() {
+
+            @Override
+            public void run() {
+
+                boolean isDeleted = CartController.delete(uid, pid);
+                if(isDeleted){
+                    Log.i(TAG, "删除用户购物车商品: uid为"+ uid + ",pid为" + pid);
+                } else {
+                    Log.i(TAG, "删除失败");
+                }
+            }
+        };
+        Thread thread = new Thread(runnable);
+        thread.start();
+        cartInfos.remove(position);
+        newData.remove(position);
+        CartListAdapter newadapter = new CartListAdapter(mContext, newData, cartInfos, getActivity());
+        listView.setAdapter(newadapter);
+        newadapter.notifyDataSetChanged();
+        /**
+         * 单选
+         */
+        newadapter.setOnClickListenterModel(new OnClickListenterModel() {
+            @Override
+            public void onItemClick(boolean isFlang, View view, int position) {
+                int pid = newData.get(position).getPid();
+                cartInfos.get(position).setIscheck(isFlang);
+                if(isFlang) {
+                    Log.i(TAG,"选中pid为" + pid + "的商品");
+                } else {
+                    Log.i(TAG, "取消对pid为" + pid + "的商品的勾选");
+                }
+                showCommodityCalculation(cartInfos);
+            }
+        });
+
+        /*
+         * 删除选项
+         */
+        newadapter.setOnClickDeleteListener(new OnClickDeleteListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                int pid = newData.get(position).getPid();
+                deleteListItem(position, pid);
+            }
+        });
+
+        /**
+         * 数量增加和减少
+         */
+        newadapter.setOnClickAddCloseListenter(new OnClickAddCloseListenter() {
+            @Override
+            public void onItemClick(View view, int index, int position, int num) {
+                if (index == 1) {
+                    if (num > 1) {
+                        cartInfos.get(position).setNum(num - 1);
+                        int pid = newData.get(position).getPid();
+                        Log.i(TAG, "pid为" + pid + "的商品数量减一");
+                        newadapter.notifyDataSetChanged();
+                    }
+                } else {
+                    cartInfos.get(position).setNum(num + 1);
+                    int pid = newData.get(position).getPid();
+                    Log.i(TAG, "pid为" + pid + "的商品数量加一");
+                    newadapter.notifyDataSetChanged();
+                }
+                showCommodityCalculation(cartInfos);
+            }
+        });
+        showCommodityCalculation(cartInfos);
     }
 }

@@ -83,4 +83,6 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.2.2'
 
     // ------- 刘律宁 -------
+    //Android侧滑菜单
+    implementation 'com.github.ljphawk:SwipeMenuLayout:1.01'
 }

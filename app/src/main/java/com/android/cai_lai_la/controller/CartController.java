@@ -42,8 +42,9 @@ public class CartController {
     public static boolean delete(int uid, int pid){
         String url = "/cart/deleteCart";
         FormBody.Builder param = new FormBody.Builder();
-        param.add("uid", ""+ uid);
-        param.add("pid", ""+ pid);
+//        param.add("uid", ""+ uid);
+//        param.add("pid", ""+ pid);
+        param.add("uid", String.valueOf(uid)).add("pid", String.valueOf(pid));
         JSONObject body = PostUtils.postParam(url,param);
         int code = body.getIntValue("code");
         return code == 200;

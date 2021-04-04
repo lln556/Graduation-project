@@ -13,9 +13,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+
 import com.android.cai_lai_la.R;
 import com.android.cai_lai_la.activity.ProductDetailActivity;
 import com.android.cai_lai_la.callback.OnClickAddCloseListenter;
+import com.android.cai_lai_la.callback.OnClickDeleteListener;
 import com.android.cai_lai_la.callback.OnClickListenterModel;
 import com.android.cai_lai_la.controller.ProductPicController;
 import com.android.cai_lai_la.model.Product;
@@ -112,6 +114,13 @@ public class CartListAdapter extends BaseAdapter {
                 activity.startActivity(intent);
             }
         });
+
+        viewHolder.btnDelete.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                onClickDeleteListener.onItemClick(v, position);
+            }
+        });
         return convertView;
     }
 
@@ -127,8 +136,6 @@ public class CartListAdapter extends BaseAdapter {
         TextView price;
         @BindView(R.id.item_chlid_check)
         CheckBox checkBox;
-        @BindView(R.id.btn_delete)
-        Button button;
         @BindView(R.id.id_front)
         View front;
         @BindView(R.id.item_chlid_add)
@@ -141,12 +148,15 @@ public class CartListAdapter extends BaseAdapter {
         ImageView imageView;
         @BindView(R.id.detalis)
         LinearLayout details;
+        @BindView(R.id.btn_delete)
+        Button btnDelete;
 
         public ViewHolder(View view, int position) {
             ButterKnife.bind(this, view);//其实就是根据我们自己提供的根布局来绑定控件
             this.position=position;
             btnAdd.setOnClickListener(this);
             btnClose.setOnClickListener(this);
+            btnDelete.setOnClickListener(this);
         }
 
         @Override
@@ -162,6 +172,7 @@ public class CartListAdapter extends BaseAdapter {
         }
     }
 
+
     // CheckBox接口的方法
     private OnClickListenterModel onClickListenterModel = null;
     public void setOnClickListenterModel(OnClickListenterModel listener) {
@@ -172,5 +183,11 @@ public class CartListAdapter extends BaseAdapter {
     private OnClickAddCloseListenter onClickAddCloseListenter = null;
     public void setOnClickAddCloseListenter(OnClickAddCloseListenter listener) {
         this.onClickAddCloseListenter = listener;
+    }
+
+    // 删除接口的方法
+    private OnClickDeleteListener onClickDeleteListener = null;
+    public void setOnClickDeleteListener(OnClickDeleteListener linster) {
+        this.onClickDeleteListener = linster;
     }
 }
