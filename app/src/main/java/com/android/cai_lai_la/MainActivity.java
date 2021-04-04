@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "onCreate: " + UserController.isLog(this));
         if (!UserController.isLog(this)) {
             Log.i(TAG, "53: 尚未登录，跳转到登录页面");
-//            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, LoginActivity.class));
         }
         Log.i(TAG, "56: 已经登录");
         initData();
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         }
         // 搜索框设置
         searchLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
+            @Override 
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, SearchActivity.class));
             }

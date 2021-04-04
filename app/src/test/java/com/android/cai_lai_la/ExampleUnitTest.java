@@ -85,6 +85,9 @@ public class ExampleUnitTest {
         List<User> list = UserController.list();
         for (User user :
                 list) {
+//            if (user.getPassword().equals("111111")){
+//                System.out.println("成功");
+//            }
             System.out.println(user);
         }
     }

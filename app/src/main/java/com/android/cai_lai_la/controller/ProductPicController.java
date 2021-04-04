@@ -24,7 +24,8 @@ public class ProductPicController {
         builder.add("pid", "" + pid);
         Log.i(TAG, "list: 请求地址为" + url);
         JSONObject jsonObject = PostUtils.postParam(url, builder);
-        JSONArray list = jsonObject.getJSONObject("data").getJSONArray("list");
+//        JSONArray list = jsonObject.getJSONObject("data").getJSONArray("list");
+        JSONArray list = jsonObject.getJSONArray("data");
         List<ProductPic> productPics = list.toJavaList(ProductPic.class);
         return productPics;
     }

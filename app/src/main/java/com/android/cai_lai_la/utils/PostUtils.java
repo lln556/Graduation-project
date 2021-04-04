@@ -15,6 +15,9 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+/**
+ * 网络访问类
+ */
 public class PostUtils {
     public static final String TAG = "PostUtils";
     public static JSONObject postJson(String url, String json) {
@@ -25,7 +28,7 @@ public class PostUtils {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
-        RequestBody body = RequestBody.create(mediaType, json);
+        RequestBody body = RequestBody.create(json,mediaType);
         Request request = new Request.Builder()
                 .url(Config.IP + url)
                 .method("POST", body)

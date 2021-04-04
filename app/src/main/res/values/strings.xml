@@ -1,5 +1,5 @@
 <resources>
-	<string name="app_name">菜来啦</string>
+	<string name="app_name">毕业设计</string>
 	
 	<string name="hello_blank_fragment">Hello blank fragment</string>
 	<string name="home_welcome_default">您还没有登录，赶快加入我们吧！</string>
