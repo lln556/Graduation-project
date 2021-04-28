@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,12 +28,47 @@ import butterknife.ButterKnife;
  */
 public class NavMeFragment extends Fragment {
 
+    private boolean isGetData = false;
+
     @BindView(R.id.headImage)
     ImageView headImage;
 
     @BindView(R.id.userName)
     TextView userName;
     public NavMeFragment() {
+    }
+
+    @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        //   进入当前Fragment
+        if (enter && !isGetData) {
+            isGetData = true;
+            //   这里可以做网络请求或者需要的数据刷新操作
+//            GetData();
+        } else {
+            isGetData = false;
+        }
+        return super.onCreateAnimation(transit, enter, nextAnim);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isGetData = false;
+    }
+
+    @Override
+    public void onResume() {
+        if (!isGetData) {
+            //   这里可以做网络请求或者需要的数据刷新操作
+            if (UserController.isLog(getContext())){
+                User user = UserController.loadUser(getContext());
+                userName.setText(user.getNickname());
+            }else
+                userName.setText("");
+            isGetData = true;
+        }
+        super.onResume();
     }
 
     public static NavMeFragment newInstance(){
@@ -47,10 +83,6 @@ public class NavMeFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
