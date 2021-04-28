@@ -33,7 +33,7 @@ import butterknife.ButterKnife;
  * home 界面使用 RecyclerView的当时，但是同时需要添加集中类型的 item
  */
 public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static final String TAG = "home adapter";
+    private static final String TAG = "HomeRecyclerAdapter";
     private Context context;
     private Activity activity;
     private List<HomeItemModel> list;
@@ -125,7 +125,8 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     activity.runOnUiThread(() -> {
                         // 初始化
                         // 设置布局方式
-                        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 4);
+                        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
+                        gridLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
                         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                             @Override
                             public int getSpanSize(int position) {

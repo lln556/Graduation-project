@@ -66,7 +66,7 @@ public class HomeCategoryRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
 
     @Override
     public int getItemCount() {
-        return 8;
+        return 10;
     }
 
     static class CategoryItemHolder extends RecyclerView.ViewHolder {
