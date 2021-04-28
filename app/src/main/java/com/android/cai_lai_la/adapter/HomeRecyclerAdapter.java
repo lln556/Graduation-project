@@ -9,8 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.android.cai_lai_la.R;
+import com.android.cai_lai_la.controller.HistoryBrowserController;
 import com.android.cai_lai_la.controller.ProductClassController;
 import com.android.cai_lai_la.controller.ProductController;
+import com.android.cai_lai_la.model.HistoryBrowser;
 import com.android.cai_lai_la.model.Product;
 import com.android.cai_lai_la.model.ProductClass;
 import com.android.cai_lai_la.model.ui.HomeBannerInfoModel;
@@ -38,11 +40,13 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private Activity activity;
     private List<HomeItemModel> list;
     private LayoutInflater inflater;  // 用于在 onCreateViewHolder 时，寻找不同的布局文件
+    private int uid;  //用户编号
 
-    public HomeRecyclerAdapter(Context context, Activity activity, List<HomeItemModel> list) {
+    public HomeRecyclerAdapter(Context context, Activity activity, List<HomeItemModel> list, int uid) {
         this.context = context;
         this.activity = activity;
         this.list = list;
+        this.uid = uid;
         inflater = LayoutInflater.from(context);
     }
 
@@ -151,16 +155,41 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
-                    List<Product> list = ProductController.list();
-                    Collections.shuffle(list);  // 随机打乱
-                    activity.runOnUiThread(() -> {
-                        // 设置布局
-                        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-                        holder.recyclerView.setLayoutManager(layoutManager);
-                        // 设置adapter
-                        HomeRecommendRecyclerAdapter homeRecommendRecyclerAdapter = new HomeRecommendRecyclerAdapter(context, activity, list);
-                        holder.recyclerView.setAdapter(homeRecommendRecyclerAdapter);
-                    });
+                    List<HistoryBrowser> list = HistoryBrowserController.list(uid);   //获取用户浏览记录
+                    List<Product> alllist = ProductController.list();
+                    List<Product> result = new ArrayList<>();
+                    for(int i = 0; i < alllist.size(); ++i){
+                        for(int j = 0; j < list.size(); ++j){
+                            int a = alllist.get(i).getPid();
+                            int b = list.get(j).getPid();
+                            if(a == b){
+                                result.add(alllist.get(i));
+                            }
+                        }
+                    }
+                    if(result.size() == 0){    //如果用户没有浏览过任何商品，则自动展示系统热门商品
+                        Collections.shuffle(alllist);
+                        activity.runOnUiThread(() -> {
+                            // 设置布局
+                            StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+                            holder.recyclerView.setLayoutManager(layoutManager);
+                            // 设置adapter
+                            HomeRecommendRecyclerAdapter homeRecommendRecyclerAdapter = new HomeRecommendRecyclerAdapter(context, activity, alllist);
+                            holder.recyclerView.setAdapter(homeRecommendRecyclerAdapter);
+                        });
+                    }
+                    else{     //根据用户的浏览记录推荐用户喜爱的商品
+                        Collections.shuffle(result);  // 随机打乱
+                        activity.runOnUiThread(() -> {
+                            // 设置布局
+                            StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+                            holder.recyclerView.setLayoutManager(layoutManager);
+                            // 设置adapter
+                            HomeRecommendRecyclerAdapter homeRecommendRecyclerAdapter = new HomeRecommendRecyclerAdapter(context, activity, result);
+                            holder.recyclerView.setAdapter(homeRecommendRecyclerAdapter);
+                        });
+                    }
+
                 }
             };
             Thread thread = new Thread(runnable);

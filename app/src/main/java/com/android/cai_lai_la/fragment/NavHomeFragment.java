@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.cai_lai_la.R;
 import com.android.cai_lai_la.adapter.HomeRecyclerAdapter;
+import com.android.cai_lai_la.controller.UserController;
+import com.android.cai_lai_la.model.User;
 import com.android.cai_lai_la.model.ui.HomeItemModel;
 
 import java.util.ArrayList;
@@ -30,8 +33,10 @@ public class NavHomeFragment extends Fragment {
     HomeRecyclerAdapter adapter;  // 相应 adapter
 
     Activity activity;
-    Context context;
+    private Context context;
     List<HomeItemModel> list;
+    private int uid;
+    private boolean isLog;
 
     public static NavHomeFragment newInstance() {
         return new NavHomeFragment();
@@ -47,9 +52,23 @@ public class NavHomeFragment extends Fragment {
         ButterKnife.bind(this, view);  // 自动绑定
         activity = getActivity();
         context = activity.getApplicationContext();
+        this.isLog = UserController.isLog(context);
+        setUid(isLog);
         initData();
         initView();
         return view;
+    }
+
+
+
+    public void setUid(boolean isLog) {
+        if (isLog) {
+            User user = UserController.loadUser(context);
+            uid = user.getUid();
+        } else {
+            uid = 0;
+            Toast.makeText(context, "您还没有登录哦", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -60,7 +79,7 @@ public class NavHomeFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
         recyclerView.setLayoutManager(layoutManager);
         // 设置 Adapter
-        adapter = new HomeRecyclerAdapter(context, activity, list);
+        adapter = new HomeRecyclerAdapter(context, activity, list, uid);
         recyclerView.setAdapter(adapter);
     }
 
@@ -77,5 +96,9 @@ public class NavHomeFragment extends Fragment {
         list.add(new HomeItemModel(HomeItemModel.TYPE_FOOTER));  // 底线
     }
 
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.notifyDataSetChanged();
+    }
 }
