@@ -46,8 +46,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:jt_visible="false"
+        app:edt_content=""
         app:paddingLeft="@dimen/home_category_item_margin_left_right"
-        app:title="ID号: 00000000" />
+        app:title="ID号:" />
 
     <com.android.cai_lai_la.widget.ItemGroup
         android:id="@+id/ig_name"

@@ -3,11 +3,15 @@ package com.android.cai_lai_la.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.android.cai_lai_la.MainActivity;
 import com.android.cai_lai_la.R;
 import com.android.cai_lai_la.controller.UserController;
+import com.android.cai_lai_la.model.User;
+import com.android.cai_lai_la.widget.ItemGroup;
+import com.android.cai_lai_la.widget.TitleLayout;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +22,15 @@ import butterknife.ButterKnife;
 public class PersonalInfoActivity extends AppCompatActivity {
     @BindView(R.id.bt_logout)
     Button logoutButton;
+    @BindView(R.id.tl_title)
+    TitleLayout toolbar;
+    @BindView(R.id.ig_id)
+    ItemGroup id;
+    @BindView(R.id.ig_name)
+    ItemGroup name;
+    @BindView(R.id.ig_gender)
+    ItemGroup gender;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,9 +40,10 @@ public class PersonalInfoActivity extends AppCompatActivity {
         if(actionBar!=null){
             actionBar.hide();
         }
-        initDate();
+        initData();
         initView();
     }
+
 
     private void initView(){
         // 退出登录按钮
@@ -44,8 +58,13 @@ public class PersonalInfoActivity extends AppCompatActivity {
             }
         });
 
+        // 保存按钮
     }
-    private void initDate(){
 
+    private void initData(){
+        User user = (User)getIntent().getSerializableExtra("User");
+        id.setContentEdt(user.getUid() + "");
+        name.setContentEdt(user.getNickname());
+        gender.setContentEdt("男");
     }
 }

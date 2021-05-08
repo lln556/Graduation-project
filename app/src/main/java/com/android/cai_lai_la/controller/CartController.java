@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.android.cai_lai_la.model.Cart;
+import com.android.cai_lai_la.model.DiscountProduct;
 import com.android.cai_lai_la.model.Product;
 import com.android.cai_lai_la.utils.PostUtils;
 
@@ -16,13 +17,13 @@ public class CartController {
      * 查看指定用户的购物车列表
      * @param uid 用户编号
      */
-    public static List<Product> list(int uid){
+    public static List<DiscountProduct> list(int uid){
         String url = "/cart/list";
         FormBody.Builder param = new FormBody.Builder();
         param.add("uid", "" + uid);
         JSONObject body = PostUtils.postParam(url,param);
         JSONArray list = body.getJSONArray("data");
-        return list.toJavaList(Product.class);
+        return list.toJavaList(DiscountProduct.class);
     }
 
     public static Cart add(Cart cart){

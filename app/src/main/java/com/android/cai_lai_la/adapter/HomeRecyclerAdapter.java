@@ -12,6 +12,7 @@ import com.android.cai_lai_la.R;
 import com.android.cai_lai_la.controller.HistoryBrowserController;
 import com.android.cai_lai_la.controller.ProductClassController;
 import com.android.cai_lai_la.controller.ProductController;
+import com.android.cai_lai_la.model.DiscountProduct;
 import com.android.cai_lai_la.model.HistoryBrowser;
 import com.android.cai_lai_la.model.Product;
 import com.android.cai_lai_la.model.ProductClass;
@@ -102,7 +103,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             CarouselHolder holder = (CarouselHolder) viewHolder;
             // 设置资源
             List<HomeBannerInfoModel> bannerInfoList = new ArrayList<>();
-            bannerInfoList.add(new HomeBannerInfoModel(R.drawable.bander1, "各种生鲜任你采购！"));
+            bannerInfoList.add(new HomeBannerInfoModel(R.drawable.discount, "点击领取优惠券！"));
             bannerInfoList.add(new HomeBannerInfoModel(R.drawable.bander2, "绿色健康，快乐好生活！"));
             bannerInfoList.add(new HomeBannerInfoModel(R.drawable.bander3, "健康享受每一天！"));
             bannerInfoList.add(new HomeBannerInfoModel(R.drawable.bander4, "缤纷水果，快乐每一天！"));
@@ -156,8 +157,24 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 @Override
                 public void run() {
                     List<HistoryBrowser> list = HistoryBrowserController.list(uid);   //获取用户浏览记录
-                    List<Product> alllist = ProductController.list();
-                    List<Product> result = new ArrayList<>();
+                    List<DiscountProduct> alllist = new ArrayList<DiscountProduct>();
+                    for(int i = 0; i < ProductController.list().size(); ++i){
+                        Product fu = ProductController.list().get(i);
+                        DiscountProduct zi = new DiscountProduct();
+                        zi.setArrivaltime(fu.getArrivaltime());
+                        zi.setCurrentprice(fu.getCurrentprice());
+                        zi.setLifetime(fu.getLifetime());
+                        zi.setManudate(fu.getManudate());
+                        zi.setOriginalprice(fu.getOriginalprice());
+                        zi.setPcid(fu.getPcid());
+                        zi.setPid(fu.getPid());
+                        zi.setSpecificationi(fu.getSpecificationi());
+                        zi.setStorenum(fu.getStorenum());
+                        zi.setSubtitle(fu.getSubtitle());
+                        zi.setTitle(fu.getTitle());
+                        alllist.add(zi);
+                    }
+                    List<DiscountProduct> result = new ArrayList<>();
                     for(int i = 0; i < alllist.size(); ++i){
                         for(int j = 0; j < list.size(); ++j){
                             int a = alllist.get(i).getPid();

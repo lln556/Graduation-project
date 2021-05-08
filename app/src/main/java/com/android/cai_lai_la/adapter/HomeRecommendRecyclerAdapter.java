@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.android.cai_lai_la.R;
 import com.android.cai_lai_la.activity.ProductDetailActivity;
 import com.android.cai_lai_la.controller.ProductPicController;
+import com.android.cai_lai_la.model.DiscountProduct;
 import com.android.cai_lai_la.model.Product;
 import com.android.cai_lai_la.model.ProductPic;
 import com.android.cai_lai_la.utils.LoadImageUtils;
@@ -28,10 +29,10 @@ public class HomeRecommendRecyclerAdapter extends RecyclerView.Adapter<RecyclerV
     public static final String TAG = "home 推荐商品 adapter";
     Context context;
     Activity activity;
-    List<Product> list;
+    List<DiscountProduct> list;
     LayoutInflater inflater;
 
-    public HomeRecommendRecyclerAdapter(Context context, Activity activity, List<Product> list) {
+    public HomeRecommendRecyclerAdapter(Context context, Activity activity, List<DiscountProduct> list) {
         this.context = context;
         this.activity = activity;
         this.list = list;
@@ -49,7 +50,7 @@ public class HomeRecommendRecyclerAdapter extends RecyclerView.Adapter<RecyclerV
     @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-        Product product = list.get(position);
+        DiscountProduct product = list.get(position);
         RecommendProductHolder holder = (RecommendProductHolder) viewHolder;
         holder.title.setText(String.format("%s，%s", product.getTitle(), product.getSubtitle()));
         holder.price.setText(String.format("￥%.2f元", product.getCurrentprice()));

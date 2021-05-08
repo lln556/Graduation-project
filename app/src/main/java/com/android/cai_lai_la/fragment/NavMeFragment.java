@@ -1,5 +1,6 @@
 package com.android.cai_lai_la.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.cai_lai_la.R;
 import com.android.cai_lai_la.activity.PersonalInfoActivity;
@@ -18,6 +20,9 @@ import com.android.cai_lai_la.model.User;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import java.io.Serializable;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -29,6 +34,9 @@ import butterknife.ButterKnife;
 public class NavMeFragment extends Fragment {
 
     private boolean isGetData = false;
+    private Context context;
+    private int uid; //用户编号
+    User user;
 
     @BindView(R.id.headImage)
     ImageView headImage;
@@ -57,10 +65,12 @@ public class NavMeFragment extends Fragment {
         isGetData = false;
     }
 
+
+    // 每次点击"我的"页面时刷新数据
     @Override
     public void onResume() {
         if (!isGetData) {
-            //   这里可以做网络请求或者需要的数据刷新操作
+            //  如果用户已登录，则显示用户名，如果未登录，则清空用户名
             if (UserController.isLog(getContext())){
                 User user = UserController.loadUser(getContext());
                 userName.setText(user.getNickname());
@@ -81,6 +91,8 @@ public class NavMeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.context = getActivity();
+        user = UserController.loadUser(context);
     }
 
 
@@ -94,11 +106,13 @@ public class NavMeFragment extends Fragment {
         headImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), PersonalInfoActivity.class));
+                Intent intent = new Intent(getActivity(), PersonalInfoActivity.class);
+                intent.putExtra("User", (Serializable) user);
+                startActivity(intent);
             }
         });
 
-
+        // 更新用户名
         if (UserController.isLog(getContext())){
             User user = UserController.loadUser(getContext());
             userName.setText(user.getNickname());
@@ -107,6 +121,9 @@ public class NavMeFragment extends Fragment {
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+
         Drawable drawable1 = getResources().getDrawable(R.drawable.headsculp);
         drawable1.setBounds(0, 0, 120, 120);
 
@@ -174,6 +191,5 @@ public class NavMeFragment extends Fragment {
         drawable7.setBounds(0, 0, 40, 40);
         jiantou2.setCompoundDrawables(null, null, drawable7, null);
     }
-
 
 }

@@ -22,6 +22,7 @@ import com.android.cai_lai_la.callback.OnClickDeleteListener;
 import com.android.cai_lai_la.callback.OnClickListenterModel;
 import com.android.cai_lai_la.controller.CartController;
 import com.android.cai_lai_la.controller.UserController;
+import com.android.cai_lai_la.model.DiscountProduct;
 import com.android.cai_lai_la.model.Product;
 import com.android.cai_lai_la.model.User;
 import com.android.cai_lai_la.model.ui.CartInfo;
@@ -58,7 +59,7 @@ public class NavCartFragment extends Fragment {
     private Context mContext;
     private boolean isLog;
     private String money;
-    private List<Product> productList = new ArrayList();
+    private List<DiscountProduct> productList = new ArrayList();
     private List<CartInfo> public_cartInfos;
     final Handler handler = new Handler() {
         @Override
@@ -68,7 +69,7 @@ public class NavCartFragment extends Fragment {
             super.handleMessage(msg);
             if (msg.what == 0) {
                 ArrayList arrayList = msg.getData().getParcelableArrayList("data");
-                List<Product> data = (List<Product>) arrayList.get(0);
+                List<DiscountProduct> data = (List<DiscountProduct>) arrayList.get(0);
 
                 for (int i = 0; i < data.size(); i++) {
                     CartInfo c1 = new CartInfo();
@@ -233,7 +234,7 @@ public class NavCartFragment extends Fragment {
 
     @OnClick(R.id.cart_shopp_moular)
     public void onClick() {
-        List<Product> productList_selected = new ArrayList();
+        List<DiscountProduct> productList_selected = new ArrayList();
         List<CartInfo> cartInfos_selected = new ArrayList();
         for (int i = 0; i < public_cartInfos.size(); i++) {
             if (public_cartInfos.get(i).ischeck()) {

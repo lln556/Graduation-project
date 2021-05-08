@@ -1,7 +1,9 @@
 package com.android.cai_lai_la.model;
 
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     /**
      * id
      */

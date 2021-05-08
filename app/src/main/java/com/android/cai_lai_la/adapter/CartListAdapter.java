@@ -3,6 +3,7 @@ package com.android.cai_lai_la.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.cai_lai_la.R;
 import com.android.cai_lai_la.activity.ProductDetailActivity;
@@ -20,12 +24,14 @@ import com.android.cai_lai_la.callback.OnClickAddCloseListenter;
 import com.android.cai_lai_la.callback.OnClickDeleteListener;
 import com.android.cai_lai_la.callback.OnClickListenterModel;
 import com.android.cai_lai_la.controller.ProductPicController;
+import com.android.cai_lai_la.model.DiscountProduct;
 import com.android.cai_lai_la.model.Product;
 import com.android.cai_lai_la.model.ProductPic;
 import com.android.cai_lai_la.model.ui.CartInfo;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
@@ -35,11 +41,11 @@ public class CartListAdapter extends BaseAdapter {
     Context context;
     Activity activity;
     private List<CartInfo> cartInfos;
-    private List<Product> list;
+    private List<DiscountProduct> list;
     private LayoutInflater layoutInflater;
 
 
-    public CartListAdapter(Context context, List<Product> list, List<CartInfo> cartInfos, Activity activity){
+    public CartListAdapter(Context context, List<DiscountProduct> list, List<CartInfo> cartInfos, Activity activity){
         this.context = context;
         this.activity = activity;
         this.layoutInflater = LayoutInflater.from(context);
@@ -72,7 +78,8 @@ public class CartListAdapter extends BaseAdapter {
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        Product product = list.get(position);
+        DiscountProduct product = list.get(position);
+        viewHolder.discount.setText(product.getDescribe());
         viewHolder.name.setText(product.getTitle());
         viewHolder.content.setText(product.getSubtitle());
         viewHolder.checkBox.setChecked(cartInfos.get(position).ischeck());
@@ -110,7 +117,7 @@ public class CartListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProductDetailActivity.class);
-                intent.putExtra(ProductDetailActivity.INTENT_PRODUCT,list.get(position));
+                intent.putExtra(ProductDetailActivity.INTENT_PRODUCT, list.get(position));
                 activity.startActivity(intent);
             }
         });
@@ -150,6 +157,8 @@ public class CartListAdapter extends BaseAdapter {
         LinearLayout details;
         @BindView(R.id.btn_delete)
         Button btnDelete;
+        @BindView(R.id.item_child_discount)
+        TextView discount;
 
         public ViewHolder(View view, int position) {
             ButterKnife.bind(this, view);//其实就是根据我们自己提供的根布局来绑定控件
@@ -170,6 +179,10 @@ public class CartListAdapter extends BaseAdapter {
                     break;
             }
         }
+    }
+
+    class HeadHolder{
+
     }
 
 

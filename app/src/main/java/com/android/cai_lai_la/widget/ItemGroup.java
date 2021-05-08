@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.EditText;
 
 import androidx.annotation.AttrRes;
 import androidx.annotation.NonNull;
@@ -20,11 +21,15 @@ public class ItemGroup extends FrameLayout {
 
     private LinearLayout itemGroupLayout; //组合控件的布局
     private TextView titleTv; //标题
-    private TextView contentEdt; //输入框
+    private EditText contentEdt; //输入框
     private ImageView jtRightIv; //向右的箭头
 
-    public TextView getContentEdt() {
+    public EditText getContentEdt() {
         return contentEdt;
+    }
+
+    public void setContentEdt(String str){
+        contentEdt.setText(str);
     }
 
     public ItemGroup(@NonNull Context context) {
@@ -49,7 +54,7 @@ public class ItemGroup extends FrameLayout {
         View view = LayoutInflater.from(context).inflate(R.layout.activity_item_group, null);
         itemGroupLayout = (LinearLayout) view.findViewById(R.id.activity_item_group_layout);
         titleTv = (TextView) view.findViewById(R.id.activity_item_group_title);
-        contentEdt = (TextView) view.findViewById(R.id.activity_item_group_content_edt);
+        contentEdt = (EditText) view.findViewById(R.id.activity_item_group_content_edt);
         jtRightIv = (ImageView) view.findViewById(R.id.activity_item_group_jt_right_iv);
         addView(view); //把自定义的这个组合控件的布局加入到当前FramLayout
     }

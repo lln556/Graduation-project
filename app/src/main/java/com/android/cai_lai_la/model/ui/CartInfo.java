@@ -1,8 +1,9 @@
 package com.android.cai_lai_la.model.ui;
 
+import com.android.cai_lai_la.model.DiscountProduct;
 import com.android.cai_lai_la.model.Product;
 
-public class CartInfo extends Product {
+public class CartInfo extends DiscountProduct {
     private int Num = 1;
 
     private boolean ischeck=false;

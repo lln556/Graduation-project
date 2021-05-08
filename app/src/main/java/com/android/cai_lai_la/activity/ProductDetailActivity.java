@@ -16,6 +16,8 @@ import com.android.cai_lai_la.controller.HistoryBrowserController;
 import com.android.cai_lai_la.controller.ProductPicController;
 import com.android.cai_lai_la.controller.UserController;
 import com.android.cai_lai_la.model.Cart;
+import com.android.cai_lai_la.model.Discount;
+import com.android.cai_lai_la.model.DiscountProduct;
 import com.android.cai_lai_la.model.HistoryBrowser;
 import com.android.cai_lai_la.model.Product;
 import com.android.cai_lai_la.model.ProductPic;
@@ -68,7 +70,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     @BindView(R.id.product_birth_date)
     TextView tv_birth_date;
 
-    Product product;  // 商品
+    DiscountProduct product;  // 商品
     List<ProductPic> productPicList;  // 商品图片列表
 
     private CollapsingToolbarLayoutState state;  // 状态标志位
@@ -110,10 +112,10 @@ public class ProductDetailActivity extends AppCompatActivity {
                 if (UserController.isLog(ProductDetailActivity.this)) {
                     new Thread(() -> {
                         User user = UserController.loadUser(ProductDetailActivity.this);
-                        List<Product> list = CartController.list(user.getUid());
+                        List<DiscountProduct> list = CartController.list(user.getUid());
                         // 判断用户是否有该商品，如果有则在基础上添加，如果没有则是创建新的
                         boolean isInCart = false;
-                        for (Product p :
+                        for (DiscountProduct p :
                                 list) {
                             if (p.getPid().equals(product.getPid())) {
                                 isInCart = true;
@@ -166,7 +168,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     private void initData() {
         // 获取出入的pid，如果不存在则直接退出
         Intent intent = getIntent();
-        product = (Product) intent.getSerializableExtra(ProductDetailActivity.INTENT_PRODUCT);
+        product = (DiscountProduct) intent.getSerializableExtra(ProductDetailActivity.INTENT_PRODUCT);
         if (product == null) {
             Log.i(TAG, "initData: 为获取到商品对象，直接退出");
             finish();
